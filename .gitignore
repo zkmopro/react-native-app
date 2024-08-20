@@ -22,3 +22,6 @@ expo-env.d.ts
 /ios
 /android
 modules/mopro/android/build/
+
+# mopro bindings
+/modules/mopro/ios/MoproiOSBindings
