@@ -1,4 +1,5 @@
 import ExpoModulesCore
+import moproFFI
 
 public class MoproModule: Module {
   // Each module class must implement the definition function. The definition consists of components
@@ -23,13 +24,39 @@ public class MoproModule: Module {
       return "Hello world! 👋"
     }
 
+    Function("generateCircomProof") { (circuitInputs: [String: [String]]) -> [String] in
+      var inputs = [String: [String]]()
+      let a = 3  // First input
+      let b = 5  // Second input
+      inputs["a"] = [String(a)]  // Numbers should be passed as strings
+      inputs["b"] = [String(b)]
+
+      // Begin timing our proof generation
+      let start = CFAbsoluteTimeGetCurrent()
+
+      // Call into the compiled static library
+      let zkeyPath = Bundle.main.path(forResource: "multiplier2_final", ofType: "zkey")!
+      do {
+        let generateProofResult = try generateCircomProof(zkeyPath: zkeyPath, circuitInputs: inputs)
+        let end = CFAbsoluteTimeGetCurrent()
+        let timeTaken = end - start
+        print("built proof in \(String(format: "%.3f", timeTaken))s")
+        return toEthereumInputs(inputs: generateProofResult.inputs)
+      } catch {
+        print("Error generate a proof: \(error)")
+      }
+      return []
+    }
+
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
     AsyncFunction("setValueAsync") { (value: String) in
       // Send an event to JavaScript.
-      self.sendEvent("onChange", [
-        "value": value
-      ])
+      self.sendEvent(
+        "onChange",
+        [
+          "value": value
+        ])
     }
 
     // Enables the module to be used as a native view. Definition components that are accepted as part of the

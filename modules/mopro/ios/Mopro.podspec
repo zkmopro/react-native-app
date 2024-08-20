@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'ExpoModulesCore'
+  s.vendored_frameworks = 'MoproiOSBindings/MoproBindings.xcframework'
 
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
@@ -18,4 +19,6 @@ Pod::Spec.new do |s|
   }
 
   s.source_files = "**/*.{h,m,mm,swift,hpp,cpp}"
+
+  s.resources = ['MoproiOSBindings/multiplier2_final.zkey']
 end
