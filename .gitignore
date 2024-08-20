@@ -25,3 +25,5 @@ modules/mopro/android/build/
 
 # mopro bindings
 /modules/mopro/ios/MoproiOSBindings
+/modules/mopro/android/src/main/jniLibs
+/modules/mopro/android/src/main/java/uniffi
