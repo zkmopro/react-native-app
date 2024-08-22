@@ -1,6 +1,77 @@
 import ExpoModulesCore
 import moproFFI
 
+struct ExpoG1: Record {
+  @Field
+  var x: String?
+
+  @Field
+  var y: String?
+}
+
+struct ExpoG2: Record {
+  @Field
+  var x: [String]?
+
+  @Field
+  var y: [String]?
+}
+
+struct ExpoProof: Record {
+  @Field
+  var a: ExpoG1?
+
+  @Field
+  var b: ExpoG2?
+
+  @Field
+  var c: ExpoG1?
+}
+
+struct Result: Record {
+  @Field
+  var inputs: [String]?
+
+  @Field
+  var proof: ExpoProof?
+
+}
+
+func convertType(proof: ProofCalldata) -> ExpoProof {
+  var a = ExpoG1()
+  a.x = proof.a.x
+  a.y = proof.a.y
+
+  var b = ExpoG2()
+  b.x = proof.b.x
+  b.y = proof.b.y
+
+  var c = ExpoG1()
+  c.x = proof.c.x
+  c.y = proof.c.y
+
+  var expoProof = ExpoProof()
+  expoProof.a = a
+  expoProof.b = b
+  expoProof.c = c
+  return expoProof
+}
+
+func generateProof(zkeyPath: String, circuitInputs: [String: [String]]) -> Result {
+  do {
+    let res = try generateCircomProof(zkeyPath: zkeyPath, circuitInputs: circuitInputs)
+    let proof = toEthereumProof(proof: res.proof)
+    let result = Result()
+    result.inputs = toEthereumInputs(inputs: res.inputs)
+    result.proof = convertType(proof: proof)
+    return result
+  } catch {
+    print("Error: \(error)")
+    let result = Result()
+    return result
+  }
+}
+
 public class MoproModule: Module {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
@@ -24,27 +95,11 @@ public class MoproModule: Module {
       return "Hello world! 👋"
     }
 
-    Function("generateCircomProof") { (zkeyPath: String, circuitInputs: [String: [String]]) -> [String] in
-      var inputs = [String: [String]]()
-      let a = 3  // First input
-      let b = 5  // Second input
-      inputs["a"] = [String(a)]  // Numbers should be passed as strings
-      inputs["b"] = [String(b)]
-
-      // Begin timing our proof generation
-      let start = CFAbsoluteTimeGetCurrent()
+    Function("generateCircomProof") {
+      (zkeyPath: String, circuitInputs: [String: [String]]) -> Result in
 
       // Call into the compiled static library
-      do {
-        let generateProofResult = try generateCircomProof(zkeyPath: zkeyPath, circuitInputs: inputs)
-        let end = CFAbsoluteTimeGetCurrent()
-        let timeTaken = end - start
-        print("built proof in \(String(format: "%.3f", timeTaken))s")
-        return toEthereumInputs(inputs: generateProofResult.inputs)
-      } catch {
-        print("Error generate a proof: \(error)")
-      }
-      return []
+      return generateProof(zkeyPath: zkeyPath, circuitInputs: circuitInputs)
     }
 
     // Defines a JavaScript function that always returns a Promise and whose native code

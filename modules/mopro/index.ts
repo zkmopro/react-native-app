@@ -6,6 +6,30 @@ import MoproModule from './src/MoproModule';
 import MoproView from './src/MoproView';
 import { ChangeEventPayload, MoproViewProps } from './src/Mopro.types';
 
+// Define the G1 interface
+export interface G1 {
+  x: string;
+  y: string;
+}
+
+// Define the G2 interface
+export interface G2 {
+  x: string[];
+  y: string[];
+}
+
+// Define the ProofCalldata interface
+export interface ProofCalldata {
+  a: G1;
+  b: G2;
+  c: G1;
+}
+
+export interface Result {
+  proof: ProofCalldata;
+  inputs: string[];
+}
+
 // Get the native constant value.
 export const PI = MoproModule.PI;
 
@@ -13,7 +37,7 @@ export function hello(): string {
   return MoproModule.hello();
 }
 
-export function generateCircomProof(zkeyPath: string, circuitInputs: { [key: string]: string[] }): string[] {
+export function generateCircomProof(zkeyPath: string, circuitInputs: { [key: string]: string[] }): Result {
   return MoproModule.generateCircomProof(zkeyPath, circuitInputs);
 }
 
