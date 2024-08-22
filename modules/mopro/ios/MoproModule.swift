@@ -24,7 +24,7 @@ public class MoproModule: Module {
       return "Hello world! 👋"
     }
 
-    Function("generateCircomProof") { (circuitInputs: [String: [String]]) -> [String] in
+    Function("generateCircomProof") { (zkeyPath: String, circuitInputs: [String: [String]]) -> [String] in
       var inputs = [String: [String]]()
       let a = 3  // First input
       let b = 5  // Second input
@@ -35,7 +35,6 @@ public class MoproModule: Module {
       let start = CFAbsoluteTimeGetCurrent()
 
       // Call into the compiled static library
-      let zkeyPath = Bundle.main.path(forResource: "multiplier2_final", ofType: "zkey")!
       do {
         let generateProofResult = try generateCircomProof(zkeyPath: zkeyPath, circuitInputs: inputs)
         let end = CFAbsoluteTimeGetCurrent()

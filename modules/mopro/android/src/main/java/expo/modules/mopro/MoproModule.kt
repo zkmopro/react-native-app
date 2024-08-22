@@ -1,14 +1,15 @@
 package expo.modules.mopro
 
+import android.net.Uri
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import java.io.File
 import uniffi.mopro.generateCircomProof
 import uniffi.mopro.toEthereumInputs
 
-fun generateProof(circuitInputs: Map<String, List<String>>): List<String> {
-
-  val zkeyPath = "/data/user/0/expo.modules.mopro/files/multiplier2_final.zkey"
-  var res = generateCircomProof(zkeyPath, circuitInputs)
+fun generateProof(zkeyPath: String, circuitInputs: Map<String, List<String>>): List<String> {
+  val file = File(zkeyPath)
+  val res = generateCircomProof(file.absolutePath, circuitInputs)
   return toEthereumInputs(res.inputs)
 }
 
@@ -34,8 +35,8 @@ class MoproModule : Module() {
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") { "Hello world! 👋" }
 
-    Function("generateCircomProof") { circuitInputs: Map<String, List<String>> ->
-      generateProof(circuitInputs)
+    Function("generateCircomProof") { zkeyPath: String, circuitInputs: Map<String, List<String>> ->
+      generateProof(zkeyPath, circuitInputs)
     }
 
     // Defines a JavaScript function that always returns a Promise and whose native code

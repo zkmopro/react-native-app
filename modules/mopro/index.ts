@@ -13,8 +13,8 @@ export function hello(): string {
   return MoproModule.hello();
 }
 
-export function generateCircomProof(circuitInputs: { [key: string]: string[] }): string[] {
-  return MoproModule.generateCircomProof(circuitInputs);
+export function generateCircomProof(zkeyPath: string, circuitInputs: { [key: string]: string[] }): string[] {
+  return MoproModule.generateCircomProof(zkeyPath, circuitInputs);
 }
 
 export async function setValueAsync(value: string) {
