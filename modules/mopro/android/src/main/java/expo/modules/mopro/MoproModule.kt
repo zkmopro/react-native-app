@@ -2,66 +2,17 @@ package expo.modules.mopro
 
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import expo.modules.kotlin.records.Field
-import expo.modules.kotlin.records.Record
 import java.io.File
 import uniffi.mopro.ProofCalldata
 import uniffi.mopro.generateCircomProof
 import uniffi.mopro.toEthereumInputs
 import uniffi.mopro.toEthereumProof
 
-class G1 : Record {
-  @Field var x: String? = null
-
-  @Field var y: String? = null
-
-  constructor(_x: String, _y: String) {
-    x = _x
-    y = _y
-  }
-}
-
-class G2 : Record {
-  @Field var x: List<String>? = null
-
-  @Field var y: List<String>? = null
-
-  constructor(_x: List<String>, _y: List<String>) {
-    x = _x
-    y = _y
-  }
-}
-
-class Proof : Record {
-  @Field var a: G1? = null
-
-  @Field var b: G2? = null
-
-  @Field var c: G1? = null
-
-  constructor(_a: G1, _b: G2, _c: G1) {
-    a = _a
-    b = _b
-    c = _c
-  }
-}
-
-class Result : Record {
-  @Field var proof: Proof? = null
-
-  @Field var inputs: List<String>? = null
-
-  constructor(_proof: Proof, _inputs: List<String>) {
-    proof = _proof
-    inputs = _inputs
-  }
-}
-
-fun convertType(proof: ProofCalldata): Proof {
-  var a = G1(proof.a.x, proof.a.y)
-  var b = G2(proof.b.x, proof.b.y)
-  var c = G1(proof.c.x, proof.c.y)
-  var output = Proof(a, b, c)
+fun convertType(proof: ProofCalldata): ExpoProof {
+  var a = ExpoG1(proof.a.x, proof.a.y)
+  var b = ExpoG2(proof.b.x, proof.b.y)
+  var c = ExpoG1(proof.c.x, proof.c.y)
+  var output = ExpoProof(a, b, c)
   return output
 }
 
