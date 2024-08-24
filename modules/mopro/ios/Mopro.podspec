@@ -19,6 +19,4 @@ Pod::Spec.new do |s|
   }
 
   s.source_files = "**/*.{h,m,mm,swift,hpp,cpp}"
-
-  s.resources = ['MoproiOSBindings/multiplier2_final.zkey']
 end
