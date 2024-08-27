@@ -1,23 +1,23 @@
-# Mopro Expo App 👋
+# Mopro React Native App with Expo framework
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-Learn more about Mopro: https://zkmopro.org.
-This is an example for `multiplier2` circuits.
+This is a sample [Expo](https://expo.dev) app that demonstrates how mopro can be used to prove a `multiplier2` circuit.
 
 > Example zkey: [multiplier2_final.zkey](https://github.com/zkmopro/mopro/raw/ae88356e680ac4d785183267d6147167fabe071c/test-vectors/circom/multiplier2_final.zkey)
 
+Learn more about Mopro: https://zkmopro.org.
+
 ## Get started
 
-1. Install dependencies
+### 1. Install dependencies
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
-2. Add Mopro Bindings
+### 2. Add Mopro Bindings
 
 -   Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
--   Copy `MoproiOSBinding` directory to `modules/mopro/ios`
+-   Copy `MoproiOSBinding` directory to `modules/mopro/ios` <br/>
     The folder structure should be as follows:
     <details>
     <summary><code>modules/mopro/ios</code></summary>
@@ -46,9 +46,9 @@ This is an example for `multiplier2` circuits.
 
     </details>
 
--   Copy the `jniLibs` directory to `modules/mopro/android/src/main/`.
-    And copy `uniffi` directory to `modules/mopro/android/src/main/java/`.
-    The folder structure should be as follows:
+-   Copy the `jniLibs` directory to `modules/mopro/android/src/main/`. <br/>
+    And copy `uniffi` directory to `modules/mopro/android/src/main/java/`. <br/>
+    The folder structure should be as follows: <br/>
 
     <details>
     <summary><code>modules/mopro/android/src/main</code></summary>
@@ -79,29 +79,25 @@ This is an example for `multiplier2` circuits.
 
     </details>
 
-3. Start the app
+### 3. Start the app
+
+-   start an android emulator
 
     ```bash
-     npx expo start
+    npm run android
     ```
 
-    - start an android emulator
+-   start an iOS simulator
 
-        ```bash
-        npm run android
-        ```
+    ```bash
+    npm run ios
+    ```
 
-    - start an iOS simulator
+-   start a web app (WIP)
 
-        ```bash
-        npm run ios
-        ```
-
-    - start a web app (WIP)
-
-        ```bash
-        npm run web
-        ```
+    ```bash
+    npm run web
+    ```
 
 ## Screenshots
 
@@ -112,3 +108,4 @@ This is an example for `multiplier2` circuits.
 ### Android
 
 <img src="./images/Screenshot_20240822_215337.png" width=300>
+````
