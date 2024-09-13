@@ -14,72 +14,7 @@ Learn more about Mopro: https://zkmopro.org.
 npm install
 ```
 
-### 2. Add Mopro Bindings
-
--   Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
--   Copy `MoproiOSBinding` directory to `modules/mopro/ios` <br/>
-    The folder structure should be as follows:
-    <details>
-    <summary><code>modules/mopro/ios</code></summary>
-
-    ```sh
-    modules/mopro/ios
-    ├── Mopro.podspec
-    ├── MoproModule.swift
-    ├── MoproType.swift
-    ├── MoproView.swift
-    └── MoproiOSBindings
-        ├── MoproBindings.xcframework
-        │   ├── Info.plist
-        │   ├── ios-arm64
-        │   │   ├── Headers
-        │   │   │   ├── module.modulemap
-        │   │   │   └── moproFFI.h
-        │   │   └── libmopro_bindings.a
-        │   └── ios-arm64_x86_64-simulator
-        │       ├── Headers
-        │       │   ├── module.modulemap
-        │       │   └── moproFFI.h
-        │       └── libmopro_bindings.a
-        └── mopro.swift
-    ```
-
-    </details>
-
--   Copy the `jniLibs` directory to `modules/mopro/android/src/main/`. <br/>
-    And copy `uniffi` directory to `modules/mopro/android/src/main/java/`. <br/>
-    The folder structure should be as follows: <br/>
-
-    <details>
-    <summary><code>modules/mopro/android/src/main</code></summary>
-
-    ```sh
-    modules/mopro/android/src/main
-    ├── AndroidManifest.xml
-    ├── java
-    │   ├── expo
-    │   │   └── modules
-    │   │       └── mopro
-    │   │           ├── MoproModule.kt
-    │   │           ├── MoproType.kt
-    │   │           └── MoproView.kt
-    │   └── uniffi
-    │       └── mopro
-    │           └── mopro.kt
-    └── jniLibs
-        ├── arm64-v8a
-        │   └── libuniffi_mopro.so
-        ├── armeabi-v7a
-        │   └── libuniffi_mopro.so
-        ├── x86
-        │   └── libuniffi_mopro.so
-        └── x86_64
-            └── libuniffi_mopro.so
-    ```
-
-    </details>
-
-### 3. Start the app
+### 2. Start the app
 
 -   start an android emulator
 
@@ -98,6 +33,16 @@ npm install
     ```bash
     npm run web
     ```
+
+
+### 3. Update Mopro Bindings
+
+-   Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
+-   Update `modules/mopro/ios/MoproiOSBinding` with `MoproiOSBindings`
+
+-   Copy the `MoproAndroidBindings/jniLibs` directory to `modules/mopro/android/src/main/jniLibs`. <br/>
+    And copy `MoproAndroidBindings/uniffi` directory to `modules/mopro/android/src/main/java/uniffi`. <br/>
+    The folder structure should be as follows: <br/>
 
 ## Screenshots
 
