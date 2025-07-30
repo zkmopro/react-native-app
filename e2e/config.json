@@ -1,0 +1,30 @@
+{
+  "setupFilesAfterEnv": ["./init.ts"],
+  "testEnvironment": "node",
+  "testRunner": "jest-circus/runner",
+  "testTimeout": 120000,
+  "reporters": ["default"],
+  "verbose": true,
+  "testMatch": [
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json"
+  ],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  "globals": {
+    "ts-jest": {
+      "tsconfig": "./e2e/tsconfig.json"
+    }
+  },
+  "setupFiles": [
+    "../node_modules/detox/runners/jest/setup.js"
+  ]
+} 

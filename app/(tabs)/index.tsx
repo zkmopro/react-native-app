@@ -149,10 +149,11 @@ function CircomProofComponent() {
     }
 
     return (
-        <View style={styles.proofContainer}>
+        <View style={styles.proofContainer} testID="proof-container">
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>a</Text>
                 <TextInput
+                    testID="input-a"
                     style={styles.input}
                     placeholder="Enter value for a"
                     value={a}
@@ -163,6 +164,7 @@ function CircomProofComponent() {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>b</Text>
                 <TextInput
+                    testID="input-b"
                     style={styles.input}
                     placeholder="Enter value for b"
                     value={b}
@@ -170,18 +172,32 @@ function CircomProofComponent() {
                     keyboardType="numeric"
                 />
             </View>
-            <Button title="Generate Circom Proof" onPress={() => genProof()} />
-            <Button title="Verify Circom Proof" onPress={() => verifyProof()} />
+            <Button
+                testID="gen-proof-button"
+                title="Generate Circom Proof"
+                onPress={() => genProof()}
+            />
+            <Button
+                testID="verify-proof-button"
+                title="Verify Circom Proof"
+                onPress={() => verifyProof()}
+            />
             <ThemedView style={styles.stepContainer}>
                 <ThemedText type="subtitle">Proof is Valid:</ThemedText>
-                <Text style={styles.output}>{isValid}</Text>
+                <Text testID="valid-output" style={styles.output}>
+                    {isValid}
+                </Text>
                 <ThemedText type="subtitle">Public Signals:</ThemedText>
                 <ScrollView style={styles.outputScroll}>
-                    <Text style={styles.output}>{JSON.stringify(inputs)}</Text>
+                    <Text testID="inputs-output" style={styles.output}>
+                        {JSON.stringify(inputs)}
+                    </Text>
                 </ScrollView>
                 <ThemedText type="subtitle">Proof:</ThemedText>
                 <ScrollView style={styles.outputScroll}>
-                    <Text style={styles.output}>{JSON.stringify(proof)}</Text>
+                    <Text testID="proof-output" style={styles.output}>
+                        {JSON.stringify(proof)}
+                    </Text>
                 </ScrollView>
             </ThemedView>
         </View>

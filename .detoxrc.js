@@ -1,83 +1,60 @@
 /** @type {Detox.DetoxConfig} */
 module.exports = {
-  testRunner: {
-    args: {
-      '$0': 'jest',
-      config: 'e2e/jest.config.js'
-    },
-    jest: {
-      setupTimeout: 120000
-    }
-  },
+  testRunner: 'jest',
+  runnerConfig: 'e2e/jest.config.ts',
   apps: {
-    'ios.debug': {
+    'reactnativeapp.ios': {
       type: 'ios.app',
       binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/reactnativeapp.app',
-      build: 'xcodebuild -workspace ios/reactnativeapp.xcworkspace -scheme reactnativeapp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
+      build: 'xcodebuild -workspace ios/reactnativeapp.xcworkspace -scheme reactnativeapp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build',
     },
-    'ios.release': {
+    'reactnativeapp.ios.release': {
       type: 'ios.app',
       binaryPath: 'ios/build/Build/Products/Release-iphonesimulator/reactnativeapp.app',
-      build: 'xcodebuild -workspace ios/reactnativeapp.xcworkspace -scheme reactnativeapp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build'
+      build: 'xcodebuild -workspace ios/reactnativeapp.xcworkspace -scheme reactnativeapp -configuration Release -sdk iphonesimulator -derivedDataPath ios/build',
     },
-    'android.debug': {
+    'reactnativeapp.android': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/debug/app-debug.apk',
-      build: 'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug',
-      reversePorts: [
-        8081
-      ]
+      build: 'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..',
     },
-    'android.release': {
+    'reactnativeapp.android.release': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/release/app-release.apk',
-      build: 'cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release'
-    }
+      build: 'cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..',
+    },
   },
   devices: {
-    simulator: {
+    'ios.simulator': {
       type: 'ios.simulator',
       device: {
         type: 'iPhone 16 Pro',
+        os: '18.4'
       }
     },
-    attached: {
-      type: 'android.attached',
-      device: {
-        adbName: '.*'
-      }
-    },
-    emulator: {
+    'android.emulator': {
       type: 'android.emulator',
       device: {
-        avdName: 'Pixel_8_API_35'
+        avdName: 'Pixel_4_API_30'
       }
     }
   },
   configurations: {
     'ios.sim.debug': {
-      device: 'simulator',
-      app: 'ios.debug'
+      device: 'ios.simulator',
+      app: 'reactnativeapp.ios'
     },
     'ios.sim.release': {
-      device: 'simulator',
-      app: 'ios.release'
-    },
-    'android.att.debug': {
-      device: 'attached',
-      app: 'android.debug'
-    },
-    'android.att.release': {
-      device: 'attached',
-      app: 'android.release'
+      device: 'ios.simulator',
+      app: 'reactnativeapp.ios.release'
     },
     'android.emu.debug': {
-      device: 'emulator',
-      app: 'android.debug'
+      device: 'android.emulator',
+      app: 'reactnativeapp.android'
     },
     'android.emu.release': {
-      device: 'emulator',
-      app: 'android.release'
+      device: 'android.emulator',
+      app: 'reactnativeapp.android.release'
     }
   }
 };
