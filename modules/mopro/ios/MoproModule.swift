@@ -1,5 +1,4 @@
 import ExpoModulesCore
-import moproFFI
 
 func convertCircomProof(proof: CircomProof) -> ExpoProof {
   let a = ExpoG1()
