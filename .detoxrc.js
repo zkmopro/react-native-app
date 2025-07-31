@@ -16,12 +16,12 @@ module.exports = {
     'reactnativeapp.android': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/debug/app-debug.apk',
-      build: 'cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..',
+      build: 'cd android && ./gradlew assembleDebug && cd ..',
     },
     'reactnativeapp.android.release': {
       type: 'android.apk',
       binaryPath: 'android/app/build/outputs/apk/release/app-release.apk',
-      build: 'cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..',
+      build: 'cd android && ./gradlew assembleRelease && cd ..',
     },
   },
   devices: {
@@ -35,7 +35,7 @@ module.exports = {
     'android.emulator': {
       type: 'android.emulator',
       device: {
-        avdName: 'Pixel_4_API_30'
+        avdName: 'Pixel_8_API_35'
       }
     }
   },
