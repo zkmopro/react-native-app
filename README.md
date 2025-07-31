@@ -97,6 +97,74 @@ npm install
     );
     ```
 
+## E2E Tests
+
+Run E2E Tests with [Detox](https://wix.github.io/Detox/)
+
+### iOS
+
+1. Start the development server
+
+    ```sh
+    npm run start
+    ```
+
+2. Verify the simulator matches your Detox config
+   Check the simulator configuration in [`.detoxrc.js`](.detoxrc.js):
+    ```js
+    devices: {
+        'ios.simulator': {
+            type: 'ios.simulator',
+            device: {
+                type: 'iPhone 16 Pro', // Your device
+                os: 'iOS 18.4' // OS version
+            }
+        }
+    }
+    ```
+    To view available simulators on your machine, run:
+    ```sh
+    xcrun simctl list devices
+    ```
+3. Run the tests
+    ```sh
+    npm run e2e:test:ios
+    ```
+
+### Android
+
+1. Start the development server
+
+    ```sh
+    npm run start
+    ```
+
+2. Verify the simulator matches your Detox config
+   Check the simulator configuration in [`.detoxrc.js`](.detoxrc.js):
+    ```js
+    devices: {
+        'android.emulator': {
+            type: 'android.emulator',
+            device: {
+                avdName: 'Pixel_8_API_35' // Your device
+            }
+        }
+    }
+    ```
+    To view available emulators on your machine, run:
+    ```sh
+    emulator -list-avds
+    ```
+3. Run build command
+    ```sh
+    npm run e2e:build:android
+    ```
+3. Run the tests
+    ```sh
+    npm run e2e:test:android
+    ```
+
+
 ## Screenshots
 
 ### iOS
