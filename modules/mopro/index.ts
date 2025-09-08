@@ -75,12 +75,16 @@ export async function verifyHalo2Proof(srsPath: string, vkPath: string, proof: U
   return await MoproModule.verifyHalo2Proof(srsPath, vkPath, proof, publicInput);
 }
 
-export async function generateNoirProof(circuitPath: string, srsPath: string | null, inputs: string[]): Promise<Uint8Array> {
-  return await MoproModule.generateNoirProof(circuitPath, srsPath, inputs);
+export async function generateNoirProof(circuitPath: string, srsPath: string | null, inputs: string[], onChain: boolean, vk: Uint8Array, lowMemoryMode: boolean): Promise<Uint8Array> {
+  return await MoproModule.generateNoirProof(circuitPath, srsPath, inputs, onChain, vk, lowMemoryMode);
 }
 
-export async function verifyNoirProof(circuitPath: string, proof: Uint8Array): Promise<boolean> {
-  return await MoproModule.verifyNoirProof(circuitPath, proof);
+export async function verifyNoirProof(circuitPath: string, proof: Uint8Array, onChain: boolean, vk: Uint8Array, lowMemoryMode: boolean): Promise<boolean> {
+  return await MoproModule.verifyNoirProof(circuitPath, proof, onChain, vk, lowMemoryMode);
+}
+
+export async function getNoirVerificationKey(circuitPath: string, srsPath: string | null, onChain: boolean, lowMemoryMode: boolean): Promise<Uint8Array> {
+  return await MoproModule.getNoirVerificationKey(circuitPath, srsPath, onChain, lowMemoryMode);
 }
 
 export async function setValueAsync(value: string) {

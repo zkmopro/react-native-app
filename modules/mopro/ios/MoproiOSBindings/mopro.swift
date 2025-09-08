@@ -7,8 +7,8 @@ import Foundation
 // Depending on the consumer's build setup, the low-level FFI code
 // might be in a separate module, or it might be compiled inline into
 // this module. This is a bit of light hackery to work with both.
-#if canImport(moproFFI)
-import moproFFI
+#if canImport(mopro_example_appFFI)
+import mopro_example_appFFI
 #endif
 
 fileprivate extension RustBuffer {
@@ -1122,12 +1122,35 @@ public func generateHalo2Proof(srsPath: String, pkPath: String, circuitInputs: [
     )
 })
 }
-public func generateNoirProof(circuitPath: String, srsPath: String?, inputs: [String])throws  -> Data  {
+public func generateNoirProof(circuitPath: String, srsPath: String?, inputs: [String], onChain: Bool, vk: Data, lowMemoryMode: Bool)throws  -> Data  {
     return try  FfiConverterData.lift(try rustCallWithError(FfiConverterTypeMoproError_lift) {
     uniffi_mopro_example_app_fn_func_generate_noir_proof(
         FfiConverterString.lower(circuitPath),
         FfiConverterOptionString.lower(srsPath),
-        FfiConverterSequenceString.lower(inputs),$0
+        FfiConverterSequenceString.lower(inputs),
+        FfiConverterBool.lower(onChain),
+        FfiConverterData.lower(vk),
+        FfiConverterBool.lower(lowMemoryMode),$0
+    )
+})
+}
+public func getNoirVerificationKey(circuitPath: String, srsPath: String?, onChain: Bool, lowMemoryMode: Bool)throws  -> Data  {
+    return try  FfiConverterData.lift(try rustCallWithError(FfiConverterTypeMoproError_lift) {
+    uniffi_mopro_example_app_fn_func_get_noir_verification_key(
+        FfiConverterString.lower(circuitPath),
+        FfiConverterOptionString.lower(srsPath),
+        FfiConverterBool.lower(onChain),
+        FfiConverterBool.lower(lowMemoryMode),$0
+    )
+})
+}
+/**
+ * You can also customize the bindings by #[uniffi::export]
+ * Reference: https://mozilla.github.io/uniffi-rs/latest/proc_macro/index.html
+ */
+public func moproUniffiHelloWorld() -> String  {
+    return try!  FfiConverterString.lift(try! rustCall() {
+    uniffi_mopro_example_app_fn_func_mopro_uniffi_hello_world($0
     )
 })
 }
@@ -1150,11 +1173,14 @@ public func verifyHalo2Proof(srsPath: String, vkPath: String, proof: Data, publi
     )
 })
 }
-public func verifyNoirProof(circuitPath: String, proof: Data)throws  -> Bool  {
+public func verifyNoirProof(circuitPath: String, proof: Data, onChain: Bool, vk: Data, lowMemoryMode: Bool)throws  -> Bool  {
     return try  FfiConverterBool.lift(try rustCallWithError(FfiConverterTypeMoproError_lift) {
     uniffi_mopro_example_app_fn_func_verify_noir_proof(
         FfiConverterString.lower(circuitPath),
-        FfiConverterData.lower(proof),$0
+        FfiConverterData.lower(proof),
+        FfiConverterBool.lower(onChain),
+        FfiConverterData.lower(vk),
+        FfiConverterBool.lower(lowMemoryMode),$0
     )
 })
 }
@@ -1180,7 +1206,13 @@ private let initializationResult: InitializationResult = {
     if (uniffi_mopro_example_app_checksum_func_generate_halo2_proof() != 12749) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_mopro_example_app_checksum_func_generate_noir_proof() != 54039) {
+    if (uniffi_mopro_example_app_checksum_func_generate_noir_proof() != 56104) {
+        return InitializationResult.apiChecksumMismatch
+    }
+    if (uniffi_mopro_example_app_checksum_func_get_noir_verification_key() != 6414) {
+        return InitializationResult.apiChecksumMismatch
+    }
+    if (uniffi_mopro_example_app_checksum_func_mopro_uniffi_hello_world() != 57387) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_mopro_example_app_checksum_func_verify_circom_proof() != 8858) {
@@ -1189,7 +1221,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_mopro_example_app_checksum_func_verify_halo2_proof() != 24595) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_mopro_example_app_checksum_func_verify_noir_proof() != 57348) {
+    if (uniffi_mopro_example_app_checksum_func_verify_noir_proof() != 50047) {
         return InitializationResult.apiChecksumMismatch
     }
 

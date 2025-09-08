@@ -24,6 +24,7 @@ import {
     CircomProof,
     generateNoirProof,
     verifyNoirProof,
+    getNoirVerificationKey,
     ProofLibOption,
     CircomProofLib,
 } from "@/modules/mopro";
@@ -349,6 +350,7 @@ function NoirProofComponent() {
     const [inputs, setInputs] = useState<string[]>([]);
     const [proof, setProof] = useState<Uint8Array>(new Uint8Array());
     const [isValid, setIsValid] = useState<string>("");
+    const [vk, setVk] = useState<Uint8Array>(new Uint8Array());
 
     async function genProof(): Promise<void> {
         const circuitInputs = [a, b];
@@ -375,10 +377,32 @@ function NoirProofComponent() {
             }
 
             try {
+                const onChain = true;  // Use Keccak for Solidity compatibility
+                const lowMemoryMode = false;
+                
+                // Generate or get existing verification key
+                let verificationKey: Uint8Array;
+                if (vk.length === 0) {
+                    console.log("Generating verification key...");
+                    verificationKey = await getNoirVerificationKey(
+                        newFilePath.replace("file://", ""),
+                        null,
+                        onChain,
+                        lowMemoryMode
+                    );
+                    setVk(verificationKey);
+                } else {
+                    verificationKey = vk;
+                }
+
+                console.log("Generating proof with verification key...");
                 const res: Uint8Array = await generateNoirProof(
                     newFilePath.replace("file://", ""),
                     null,
-                    circuitInputs
+                    circuitInputs,
+                    onChain,
+                    verificationKey,
+                    lowMemoryMode
                 );
                 setProof(res);
             } catch (error) {
@@ -391,6 +415,16 @@ function NoirProofComponent() {
         if (Platform.OS === "web") {
             setIsValid("not implemented");
         } else if (Platform.OS === "android" || Platform.OS === "ios") {
+            if (proof.length === 0) {
+                setIsValid("Error: Proof data is not available. Generate proof first.");
+                return;
+            }
+            
+            if (vk.length === 0) {
+                setIsValid("Error: Verification key is not available. Generate proof first.");
+                return;
+            }
+
             const circuitName = "noir_multiplier2.json";
 
             const content = require(`@/assets/keys/${circuitName}`);
@@ -411,9 +445,15 @@ function NoirProofComponent() {
             }
 
             try {
+                const onChain = true;  // Use Keccak for Solidity compatibility
+                const lowMemoryMode = false;
+
                 const res: boolean = await verifyNoirProof(
                     newFilePath.replace("file://", ""),
-                    proof
+                    proof,
+                    onChain,
+                    vk,
+                    lowMemoryMode
                 );
                 setIsValid(res.toString());
             } catch (error) {
