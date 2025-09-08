@@ -109,21 +109,30 @@ class MoproModule : Module() {
         }   
     }
 
-    AsyncFunction("generateNoirProof") { circuitPath: String, srsPath: String?, inputs: List<String> ->
+    AsyncFunction("generateNoirProof") { circuitPath: String, srsPath: String?, inputs: List<String>, onChain: Boolean, vk: ByteArray, lowMemoryMode: Boolean ->
       try {
-        val res = generateNoirProof(circuitPath, srsPath, inputs)
+        val res = generateNoirProof(circuitPath, srsPath, inputs, onChain, vk, lowMemoryMode)
         res
       } catch (e: Exception) {
         throw CodedException("GenerateProofFailed", "Unknown error occurred during proof generation", e)
       }   
     }
 
-    AsyncFunction("verifyNoirProof") { circuitPath: String, proof: ByteArray ->
+    AsyncFunction("verifyNoirProof") { circuitPath: String, proof: ByteArray, onChain: Boolean, vk: ByteArray, lowMemoryMode: Boolean ->
       try {
-        val res = verifyNoirProof(circuitPath, proof)
+        val res = verifyNoirProof(circuitPath, proof, onChain, vk, lowMemoryMode)
         res
       } catch (e: Exception) {
         throw CodedException("VerifyProofFailed", "Unknown error occurred during proof verification", e)
+      }   
+    }
+
+    AsyncFunction("getNoirVerificationKey") { circuitPath: String, srsPath: String?, onChain: Boolean, lowMemoryMode: Boolean ->
+      try {
+        val res = getNoirVerificationKey(circuitPath, srsPath, onChain, lowMemoryMode)
+        res
+      } catch (e: Exception) {
+        throw CodedException("GenerateProofFailed", "Unknown error occurred during verification key generation", e)
       }   
     }
 

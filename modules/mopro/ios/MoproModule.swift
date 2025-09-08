@@ -146,10 +146,10 @@ public class MoproModule: Module {
     }
 
     AsyncFunction("generateNoirProof") {
-      (circuitPath: String, srsPath: String?, inputs: [String]) throws -> Data in
+      (circuitPath: String, srsPath: String?, inputs: [String], onChain: Bool, vk: Data, lowMemoryMode: Bool) throws -> Data in
 
       do {
-        let res = try generateNoirProof(circuitPath: circuitPath, srsPath: srsPath, inputs: inputs)
+        let res = try generateNoirProof(circuitPath: circuitPath, srsPath: srsPath, inputs: inputs, onChain: onChain, vk: vk, lowMemoryMode: lowMemoryMode)
         return res
       } catch {
         print("error", error)
@@ -158,13 +158,24 @@ public class MoproModule: Module {
     }
 
     AsyncFunction("verifyNoirProof") {
-      (circuitPath: String, proof: Data) throws -> Bool in
+      (circuitPath: String, proof: Data, onChain: Bool, vk: Data, lowMemoryMode: Bool) throws -> Bool in
 
       do {
-        let isValid = try verifyNoirProof(circuitPath: circuitPath, proof: proof)
+        let isValid = try verifyNoirProof(circuitPath: circuitPath, proof: proof, onChain: onChain, vk: vk, lowMemoryMode: lowMemoryMode)
         return isValid
       } catch {
         throw NoirError.noirProofVerificationFailed(error.localizedDescription)
+      }
+    }
+
+    AsyncFunction("getNoirVerificationKey") {
+      (circuitPath: String, srsPath: String?, onChain: Bool, lowMemoryMode: Bool) throws -> Data in
+
+      do {
+        let vk = try getNoirVerificationKey(circuitPath: circuitPath, srsPath: srsPath, onChain: onChain, lowMemoryMode: lowMemoryMode)
+        return vk
+      } catch {
+        throw NoirError.noirProofGenerationFailed(error.localizedDescription)
       }
     }
 
