@@ -4,7 +4,7 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import expo.modules.kotlin.exception.CodedException
 import java.io.File
-import uniffi.mopro.*
+import uniffi.{{PACKAGE_NAME}}.*
 
 fun convertCircomProof(proof: CircomProof): ExpoProof {
   var a = ExpoG1(proof.a.x, proof.a.y, proof.a.z)
