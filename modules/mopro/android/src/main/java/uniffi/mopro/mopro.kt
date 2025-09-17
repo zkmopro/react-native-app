@@ -1774,7 +1774,9 @@ fun `getNoirVerificationKey`(
 fun `moproUniffiHelloWorld`(): kotlin.String =
     FfiConverterString.lift(
         uniffiRustCall { _status ->
-            UniffiLib.INSTANCE.uniffi_mopro_example_app_fn_func_mopro_uniffi_hello_world(_status)
+            UniffiLib.INSTANCE.uniffi_mopro_example_app_fn_func_mopro_uniffi_hello_world(
+                _status,
+            )
         },
     )
 
