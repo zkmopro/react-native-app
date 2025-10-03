@@ -22,6 +22,11 @@ jobs:
 
             - name: Install Expo CLI
               run: npm install -g expo-cli
+            
+            - name: Install applesimutils
+              run: |
+                brew tap wix/brew
+                brew install applesimutils
 
             - name: Prebuild
               run: npm run prebuild
