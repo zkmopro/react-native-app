@@ -100,25 +100,14 @@ jobs:
 
             - name: Clean workspace
               run: |
-                  sudo docker image prune -af
-                  sudo rm -rf /home/runner/actions-runner/_work/_temp/*
-                  sudo rm -rf /home/runner/actions-runner/_work/_diag/*
+                  echo "Cleaning unused caches..."
                   sudo rm -rf $HOME/.gradle/caches/
-                  sudo rm -rf $HOME/.gradle/wrapper/
                   sudo rm -rf $HOME/.android/build-cache/
                   sudo rm -rf android/app/build/
-                  sudo rm -rf android/.cxx/
                   sudo rm -rf /tmp/*
+                  sudo rm -rf /usr/local/lib/android/sdk/system-images
+                  sudo rm -rf /usr/local/lib/android/sdk/emulator/qemu
 
-            - name: Remove old APKs/logs
-              run: |
-                  find android -name "*.apk" -type f -delete
-                  find android -name "*.aab" -type f -delete
-                  find android -name "*.log" -type f -delete
-            - name: Show disk usage
-              run: |
-                  df -h
-                  du -sh $HOME/*
             - name: Build Android for Detox
               uses: reactivecircus/android-emulator-runner@v2
               with:
@@ -126,7 +115,7 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  disk-size: 4096M
+                  disk-size: 2048M
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
                   script: npm run e2e:build:android
 
@@ -137,6 +126,6 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  disk-size: 4096M
+                  disk-size: 2048M
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-                  script: npm run e2e:test:android
+                  script: npm run e2e:build:android
