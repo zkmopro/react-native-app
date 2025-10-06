@@ -106,7 +106,6 @@ jobs:
                   sudo rm -rf android/app/build/
                   sudo rm -rf /tmp/*
                   sudo rm -rf /usr/local/lib/android/sdk/system-images
-                  sudo rm -rf /usr/local/lib/android/sdk/emulator/qemu
 
             - name: Build Android for Detox
               uses: reactivecircus/android-emulator-runner@v2
