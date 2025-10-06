@@ -101,9 +101,17 @@ jobs:
             - name: Clean workspace
               run: |
                   sudo rm -rf $HOME/.gradle/caches/
+                  sudo rm -rf $HOME/.gradle/wrapper/
                   sudo rm -rf $HOME/.android/build-cache/
                   sudo rm -rf android/app/build/
+                  sudo rm -rf android/.cxx/
                   sudo rm -rf /tmp/*
+
+            - name: Remove old APKs/logs
+              run: |
+                  find android -name "*.apk" -type f -delete
+                  find android -name "*.aab" -type f -delete
+                  find android -name "*.log" -type f -delete
 
             - name: Build Android for Detox
               uses: reactivecircus/android-emulator-runner@v2
