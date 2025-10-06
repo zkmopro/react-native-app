@@ -98,6 +98,13 @@ jobs:
                   sudo udevadm control --reload-rules
                   sudo udevadm trigger --name-match=kvm
 
+            - name: Clean workspace
+              run: |
+                  sudo rm -rf $HOME/.gradle/caches/
+                  sudo rm -rf $HOME/.android/build-cache/
+                  sudo rm -rf android/app/build/
+                  sudo rm -rf /tmp/*
+
             - name: Build Android for Detox
               uses: reactivecircus/android-emulator-runner@v2
               with:
@@ -105,7 +112,7 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
                   script: npm run e2e:build:android
 
             - name: Run Android Detox tests
@@ -115,5 +122,5 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
                   script: npm run e2e:test:android
