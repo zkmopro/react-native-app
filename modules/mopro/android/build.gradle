@@ -40,6 +40,11 @@ android {
   lintOptions {
     abortOnError false
   }
+  packaging {
+    jniLibs {
+      exclude '**/libc++_shared.so'
+    }
+  }
 }
 
 

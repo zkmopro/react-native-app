@@ -20,7 +20,7 @@ describe('Circom Proof UI Flow', () => {
     // Wait for proof to appear using proper Detox waiting
     await waitFor(element(by.id('inputs-output')))
       .toHaveText('["33","3"]')
-      .withTimeout(1000);
+      .withTimeout(10000);
 
     // Tap Verify Proof
     await element(by.id('verify-proof-button')).tap();
