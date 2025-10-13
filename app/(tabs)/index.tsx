@@ -150,11 +150,11 @@ function CircomProofComponent() {
     }
 
     return (
-        <View style={styles.proofContainer} testID="proof-container">
+        <View style={styles.proofContainer} testID="circom-proof-container">
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>a</Text>
                 <TextInput
-                    testID="input-a"
+                    testID="circom-input-a"
                     style={styles.input}
                     placeholder="Enter value for a"
                     value={a}
@@ -165,7 +165,7 @@ function CircomProofComponent() {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>b</Text>
                 <TextInput
-                    testID="input-b"
+                    testID="circom-input-b"
                     style={styles.input}
                     placeholder="Enter value for b"
                     value={b}
@@ -174,29 +174,29 @@ function CircomProofComponent() {
                 />
             </View>
             <Button
-                testID="gen-proof-button"
+                testID="circom-gen-proof-button"
                 title="Generate Circom Proof"
                 onPress={() => genProof()}
             />
             <Button
-                testID="verify-proof-button"
+                testID="circom-verify-proof-button"
                 title="Verify Circom Proof"
                 onPress={() => verifyProof()}
             />
             <ThemedView style={styles.stepContainer}>
                 <ThemedText type="subtitle">Proof is Valid:</ThemedText>
-                <Text testID="valid-output" style={styles.output}>
+                <Text testID="circom-valid-output" style={styles.output}>
                     {isValid}
                 </Text>
                 <ThemedText type="subtitle">Public Signals:</ThemedText>
                 <ScrollView style={styles.outputScroll}>
-                    <Text testID="inputs-output" style={styles.output}>
+                    <Text testID="circom-inputs-output" style={styles.output}>
                         {JSON.stringify(inputs)}
                     </Text>
                 </ScrollView>
                 <ThemedText type="subtitle">Proof:</ThemedText>
                 <ScrollView style={styles.outputScroll}>
-                    <Text testID="proof-output" style={styles.output}>
+                    <Text testID="circom-proof-output" style={styles.output}>
                         {JSON.stringify(proof)}
                     </Text>
                 </ScrollView>
@@ -319,6 +319,7 @@ function Halo2ProofComponent() {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>a</Text>
                 <TextInput
+                    testID="halo2-input-out"
                     style={styles.input}
                     placeholder="Enter value for out"
                     value={out}
@@ -467,6 +468,7 @@ function NoirProofComponent() {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>a</Text>
                 <TextInput
+                    testID="noir-input-a"
                     style={styles.input}
                     placeholder="Enter value for a"
                     value={a}
@@ -477,6 +479,7 @@ function NoirProofComponent() {
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>b</Text>
                 <TextInput
+                    testID="noir-input-b"
                     style={styles.input}
                     placeholder="Enter value for b"
                     value={b}

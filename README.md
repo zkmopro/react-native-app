@@ -130,6 +130,12 @@ Run E2E Tests with [Detox](https://wix.github.io/Detox/)
     ```sh
     npm run e2e:test:ios
     ```
+    > The default tests currently run only successfully with the Circom prover.
+    > ```sh
+    > npm run e2e:test:ios -- e2e/circom.test.ts
+    > ```
+    > To test other adapters, please build using the Mopro CLI.
+    > See [Getting Started](https://zkmopro.org/docs/getting-started)
 
 ### Android
 
