@@ -19,7 +19,9 @@ web-build/
 expo-env.d.ts
 # @end expo-cli
 
-/ios
+ios/build
+ios/.xcode.env.local
+ios/Pods
 modules/mopro/android/build/
 modules/mopro/android/.gradle/
 modules/mopro/android/.cxx/
