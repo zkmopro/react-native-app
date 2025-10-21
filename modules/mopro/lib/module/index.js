@@ -13,19 +13,19 @@ if (!rustInstalled) {
 }
 
 // Export the generated bindings to the app.
-export * from "./generated/test_e2e.js";
+export * from "./generated/mopro_example_app.js";
 
 // Now import the bindings so we can:
 // - intialize them
 // - export them as namespaced objects as the default export.
-import * as test_e2e from "./generated/test_e2e.js";
+import * as mopro_example_app from "./generated/mopro_example_app.js";
 
 // Initialize the generated bindings: mostly checksums, but also callbacks.
 // - the boolean flag ensures this loads exactly once, even if the JS code
 //   is reloaded (e.g. during development with metro).
 let initialized = false;
 if (!initialized) {
-  test_e2e.default.initialize();
+  mopro_example_app.default.initialize();
   initialized = true;
 }
 
@@ -38,6 +38,6 @@ export async function uniffiInitAsync() {
 
 // Export the crates as individually namespaced objects.
 export default {
-  test_e2e
+  mopro_example_app
 };
 //# sourceMappingURL=index.js.map

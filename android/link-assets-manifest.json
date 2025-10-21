@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/keys/multiplier2_final.zkey",
+      "sha1": "63bdbf3c24b9f108a09ceef52dd2fca0069d01b2"
+    },
+    {
+      "path": "assets/keys/noir_multiplier2.json",
+      "sha1": "7cdcca6d7dc26609a9a01c1f279b1d4db68c144e"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_pk.bin",
+      "sha1": "b74f6731c4a037637cc76f0134c059a5a412d2cc"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_srs.bin",
+      "sha1": "86e56f2d743117dab7dd20b926e2c760dde17de3"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_vk.bin",
+      "sha1": "6979d2547f039bf73c0cc0545b9230b57c084172"
+    }
+  ]
+}

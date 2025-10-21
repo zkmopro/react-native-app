@@ -1,8 +1,8 @@
-export * from './generated/test_e2e';
-import * as test_e2e from './generated/test_e2e';
+export * from './generated/mopro_example_app';
+import * as mopro_example_app from './generated/mopro_example_app';
 export declare function uniffiInitAsync(): Promise<void>;
 declare const _default: {
-    test_e2e: typeof test_e2e;
+    mopro_example_app: typeof mopro_example_app;
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map

@@ -25,6 +25,7 @@ include_directories(
 
 add_library(my-test-library            SHARED
     ../cpp/my-test-library.cpp
+    ../cpp/generated/mopro_example_app.cpp
     cpp-adapter.cpp
 )
 
@@ -36,12 +37,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
 
-# Set linker flags for 16KB page size alignment (required for Android 15+)
-set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,max-page-size=16384")
-
 cmake_path(
   SET MY_RUST_LIB
-  ${CMAKE_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libtest_e2e.a
+  ${CMAKE_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libmopro_example_app.a
   NORMALIZE
 )
 add_library(my_rust_lib STATIC IMPORTED)

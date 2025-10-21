@@ -1,22 +1,4 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./lib/typescript",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "skipLibCheck": true
-  },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "example",
-    "**/__tests__",
-    "**/__fixtures__",
-    "**/__mocks__"
-  ]
+  "extends": "./tsconfig",
+  "exclude": ["example", "lib"]
 }
-

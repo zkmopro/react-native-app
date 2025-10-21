@@ -159,11 +159,10 @@ Run E2E Tests with [Detox](https://wix.github.io/Detox/)
     ```sh
     npm run e2e:build:android
     ```
-3. Run the tests
+4. Run the tests
     ```sh
     npm run e2e:test:android
     ```
-
 
 ## Screenshots
 

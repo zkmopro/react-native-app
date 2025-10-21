@@ -1,0 +1,17 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      skip: true
+      glob: "*.{js,ts,jsx,tsx}"
+      run: npx eslint {staged_files}
+    types:
+      skip: true
+      glob: "*.{js,ts, jsx, tsx}"
+      run: npx tsc --project tsconfig.json
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      skip: true
+      run: npx commitlint --edit
