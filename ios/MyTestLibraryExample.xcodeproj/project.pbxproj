@@ -24,16 +24,16 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyTestLibraryExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MyTestLibraryExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = MyTestLibraryExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		206F42B759ED439DA8FFF749 /* multiplier2_final.zkey */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_final.zkey; path = ../assets/keys/multiplier2_final.zkey; sourceTree = "<group>"; };
+		206F42B759ED439DA8FFF749 /* multiplier2_final.zkey */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_final.zkey; path = ../assets/keys/multiplier2_final.zkey; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-MyTestLibraryExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTestLibraryExample.debug.xcconfig"; path = "Target Support Files/Pods-MyTestLibraryExample/Pods-MyTestLibraryExample.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-MyTestLibraryExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTestLibraryExample.release.xcconfig"; path = "Target Support Files/Pods-MyTestLibraryExample/Pods-MyTestLibraryExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-MyTestLibraryExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTestLibraryExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MyTestLibraryExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MyTestLibraryExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9C8FAA0995EA45B3BCC3C0BA /* plonk_fibonacci_pk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_pk.bin; path = ../assets/keys/plonk_fibonacci_pk.bin; sourceTree = "<group>"; };
-		9E9B7DF37D93487DB2B82672 /* noir_multiplier2.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.json; path = ../assets/keys/noir_multiplier2.json; sourceTree = "<group>"; };
-		A75EBD7E6671443284BEEF36 /* plonk_fibonacci_srs.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_srs.bin; path = ../assets/keys/plonk_fibonacci_srs.bin; sourceTree = "<group>"; };
-		C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_vk.bin; path = ../assets/keys/plonk_fibonacci_vk.bin; sourceTree = "<group>"; };
+		9C8FAA0995EA45B3BCC3C0BA /* plonk_fibonacci_pk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_pk.bin; path = ../assets/keys/plonk_fibonacci_pk.bin; sourceTree = "<group>"; };
+		9E9B7DF37D93487DB2B82672 /* noir_multiplier2.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.json; path = ../assets/keys/noir_multiplier2.json; sourceTree = "<group>"; };
+		A75EBD7E6671443284BEEF36 /* plonk_fibonacci_srs.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_srs.bin; path = ../assets/keys/plonk_fibonacci_srs.bin; sourceTree = "<group>"; };
+		C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_vk.bin; path = ../assets/keys/plonk_fibonacci_vk.bin; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,6 @@
 				C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -288,6 +287,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyTestLibraryExample/Info.plist;
@@ -316,6 +317,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = MyTestLibraryExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -365,7 +368,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -441,7 +443,6 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
