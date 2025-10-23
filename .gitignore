@@ -25,3 +25,4 @@ ios/Pods
 modules/mopro/android/build/
 modules/mopro/android/.gradle/
 modules/mopro/android/.cxx/
+modules/mopro/lib
