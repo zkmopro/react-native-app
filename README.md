@@ -6,6 +6,14 @@ Learn more about Mopro: https://zkmopro.org.
 
 ## Get started
 
+### Prerequisites
+
+Use node.js >= `20`
+
+```sh
+nvm use 20
+```
+
 ### 1. Install dependencies
 
 ```bash
@@ -14,7 +22,7 @@ npm install
 
 ### 2. Start the app
 
--   setup the `ANDROID_HOME` environment
+- setup the `ANDROID_HOME` environment
 
     ```bash
     export ANDROID_HOME=~/Library/Android/sdk
@@ -26,19 +34,13 @@ npm install
     npm run android
     ```
 
--   start an iOS simulator
+- start an iOS simulator
 
     ```bash
     npm run ios
     ```
 
-    start an iOS device
-
-    ```bash
-    npm run ios:device
-    ```
-
--   start a web app
+- start a web app
 
     ```bash
     npm run web
@@ -46,27 +48,27 @@ npm install
 
 ### 3. Update Mopro Bindings
 
--   Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
--   Update `modules/mopro/ios/MoproiOSBinding` with `MoproiOSBindings`
+- Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
+- Update `modules/mopro/ios/MoproiOSBinding` with `MoproiOSBindings`
 
--   Copy the `MoproAndroidBindings/jniLibs` directory to `modules/mopro/android/src/main/jniLibs`. <br/>
-    And copy `MoproAndroidBindings/uniffi` directory to `modules/mopro/android/src/main/java/uniffi`. <br/>
+- Copy the `MoproAndroidBindings/jniLibs` directory to `modules/mopro/android/src/main/jniLibs`. <br/>
+  And copy `MoproAndroidBindings/uniffi` directory to `modules/mopro/android/src/main/java/uniffi`. <br/>
 
 ### 4. Define React Native Module
 
--   Define React Native's module APIs to pass messages between React Native and your desired platforms.
-    -   **iOS:**
-        -   [`modules/mopro/ios/MoproModule.swift`](modules/mopro/ios/MoproModule.swift)
-    -   **Android**
-        -   [`modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt`](modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt)
-    -   **Browser**
-        -   [`modules/mopro/src/MoproModule.web.ts`](modules/mopro/src/MoproModule.web.ts)
-    -   **React Native**
-        -   [`modules/mopro/index.ts`](modules/mopro/index.ts)
+- Define React Native's module APIs to pass messages between React Native and your desired platforms.
+    - **iOS:**
+        - [`modules/mopro/ios/MoproModule.swift`](modules/mopro/ios/MoproModule.swift)
+    - **Android**
+        - [`modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt`](modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt)
+    - **Browser**
+        - [`modules/mopro/src/MoproModule.web.ts`](modules/mopro/src/MoproModule.web.ts)
+    - **React Native**
+        - [`modules/mopro/index.ts`](modules/mopro/index.ts)
 
 ### 5. Use the React Native Module
 
--   For example, in [`app/(tabs)/index.tsx`](<app/(tabs)/index.tsx>)
+- For example, in [`app/(tabs)/index.tsx`](<app/(tabs)/index.tsx>)
 
     ```ts
     import {
