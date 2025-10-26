@@ -22,7 +22,7 @@ expo-env.d.ts
 ios/build
 ios/.xcode.env.local
 ios/Pods
-modules/mopro/android/build/
-modules/mopro/android/.gradle/
-modules/mopro/android/.cxx/
-modules/mopro/lib
+MoproReactNativeBindings/android/build/
+MoproReactNativeBindings/android/.gradle/
+MoproReactNativeBindings/android/.cxx/
+MoproReactNativeBindings/lib

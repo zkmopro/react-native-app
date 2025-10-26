@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "workspaces": [
-    "modules/mopro"
+    "MoproReactNativeBindings"
   ],
   "scripts": {
     "assets": "npx react-native-asset",
-    "ubrn:ios": "cd modules/mopro && npm run ubrn:ios",
-    "ubrn:android": "cd modules/mopro && npm run ubrn:android",
+    "ubrn:ios": "cd MoproReactNativeBindings && npm run ubrn:ios",
+    "ubrn:android": "cd MoproReactNativeBindings && npm run ubrn:android",
     "ios": "npm run assets && cd ios && pod install && cd .. && react-native run-ios",
     "android": "npm run assets && react-native run-android",
     "start": "react-native start",

@@ -1,5 +1,5 @@
 const path = require('path');
-const pkg = require('./modules/mopro/package.json');
+const pkg = require('./MoproReactNativeBindings/package.json');
 
 module.exports = {
   project: {
@@ -9,7 +9,7 @@ module.exports = {
   },
   dependencies: {
     [pkg.name]: {
-      root: path.join(__dirname, 'modules/mopro'),
+      root: path.join(__dirname, 'MoproReactNativeBindings'),
       platforms: {
         // Codegen script incorrectly fails without this
         // So we explicitly specify the platforms with empty object

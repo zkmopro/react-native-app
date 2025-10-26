@@ -1,8 +1,8 @@
 const path = require('path');
 const { getConfig } = require('react-native-builder-bob/babel-config');
-const pkg = require('./modules/mopro/package.json');
+const pkg = require('./MoproReactNativeBindings/package.json');
 
-const root = path.resolve(__dirname, 'modules/mopro');
+const root = path.resolve(__dirname, 'MoproReactNativeBindings');
 
 module.exports = getConfig(
   {
