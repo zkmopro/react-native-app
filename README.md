@@ -65,15 +65,19 @@ npm install
 
     ```ts
     import {
+        CircomProof,
+        CircomProofResult,
         generateCircomProof,
+        generateHalo2Proof,
+        generateNoirProof,
+        getNoirVerificationKey,
+        Halo2ProofResult,
+        ProofLib,
         verifyCircomProof,
-        CircomProofLib,
-        ProofLibOption,
-    } from "@/modules/mopro";
+        verifyHalo2Proof,
+        verifyNoirProof,
+    } from 'mopro-ffi';
 
-    const proofLib: CircomProofLib = {
-        proofLib: ProofLibOption.Arkworks,
-    };
     const circuitInputs = {
         a: ["3"],
         b: ["5"],
@@ -82,17 +86,18 @@ npm install
     const res: CircomProofResult = await generateCircomProof(
         zkeyPath.replace("file://", ""),
         JSON.stringify(circuitInputs),
-        proofLib
+        ProofLib.Arkworks
     );
 
-    const valid = await verifyCircomProof(
+    const res: boolean = await verifyCircomProof(
         zkeyPath.replace("file://", ""),
         res,
-        proofLib
+        ProofLib.Arkworks
     );
     ```
 
-## E2E Tests
+<!-- TODO: integrate back e2e tests -->
+<!-- ## E2E Tests
 
 Run E2E Tests with [Detox](https://wix.github.io/Detox/)
 
@@ -157,7 +162,7 @@ Run E2E Tests with [Detox](https://wix.github.io/Detox/)
 4. Run the tests
     ```sh
     npm run e2e:test:android
-    ```
+    ``` -->
 
 ## Screenshots
 
@@ -169,6 +174,4 @@ Run E2E Tests with [Detox](https://wix.github.io/Detox/)
 
 <img src="./images/Android_Screenshot.png" width=300>
 
-### Web
-
-<img src="./images/Web_Screenshot.png" width=300>
+<!-- TODO: add web support -->
