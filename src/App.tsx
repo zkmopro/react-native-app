@@ -12,10 +12,6 @@ import {
 import {
   CircomProof,
   CircomProofResult,
-  // Calculator,
-  // type BinaryOperator,
-  // SafeAddition,
-  // ComputationResult,
   generateCircomProof,
   generateHalo2Proof,
   generateNoirProof,

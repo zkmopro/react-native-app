@@ -65,17 +65,10 @@ npm install
 
     ```ts
     import {
-        CircomProof,
         CircomProofResult,
         generateCircomProof,
-        generateHalo2Proof,
-        generateNoirProof,
-        getNoirVerificationKey,
-        Halo2ProofResult,
         ProofLib,
         verifyCircomProof,
-        verifyHalo2Proof,
-        verifyNoirProof,
     } from 'mopro-ffi';
 
     const circuitInputs = {
