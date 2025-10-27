@@ -8,7 +8,7 @@ PODS:
   - hermes-engine (0.81.4):
     - hermes-engine/Pre-built (= 0.81.4)
   - hermes-engine/Pre-built (0.81.4)
-  - MyTestLibrary (0.1.0):
+  - MoproFfi (0.1.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2384,7 +2384,7 @@ DEPENDENCIES:
   - fmt (from `../node_modules/react-native/third-party-podspecs/fmt.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
-  - MyTestLibrary (from `../MoproReactNativeBindings`)
+  - MoproFfi (from `../MoproReactNativeBindings`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
   - RCTRequired (from `../node_modules/react-native/Libraries/Required`)
@@ -2475,7 +2475,7 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-07-07-RNv0.81.0-e0fc67142ec0763c6b6153ca2bf96df815539782
-  MyTestLibrary:
+  MoproFfi:
     :path: "../MoproReactNativeBindings"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
@@ -2618,7 +2618,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 35c763d57c9832d0eef764316ca1c4d043581394
-  MyTestLibrary: cbf829b625a26a9ff5e10a8e8f753147222e6a6c
+  MoproFfi: 62968be757109eb7ddb94be1fe66b46e2797eda6
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
   RCTDeprecation: c0ed3249a97243002615517dff789bf4666cf585
   RCTRequired: 58719f5124f9267b5f9649c08bf23d9aea845b23

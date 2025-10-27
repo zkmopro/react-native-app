@@ -1,9 +1,3 @@
----
-# rust:
-#   repo: https://github.com/jhugman/uniffi-starter.git
-#   branch: jhugman/bump-uniffi-to-0.29
-#   manifestPath: rust/foobar/Cargo.toml
-
 rust:
   directory: /Users/zhengyawen/Documents/GitHub/mopro-example-app
   manifestPath: Cargo.toml

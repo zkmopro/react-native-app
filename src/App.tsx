@@ -25,7 +25,7 @@ import {
   verifyCircomProof,
   verifyHalo2Proof,
   verifyNoirProof,
-} from 'my-test-library';
+} from 'mopro-ffi';
 import RNFS from 'react-native-fs';
 import { useEffect, useState } from 'react';
 

@@ -40,6 +40,14 @@ npm install
     npm run ios
     ```
 
+    To run the app on a real iOS device, open the Xcode workspace:
+
+    ```bash
+    open ios/MyTestLibraryExample.xcworkspace
+    ```
+
+    Then, in Xcode, select your project in the sidebar, go to **Signing & Capabilities → Signing**, and choose your Apple account (team) under **Team**.
+
 - start a web app
 
     ```bash
@@ -48,27 +56,12 @@ npm install
 
 ### 3. Update Mopro Bindings
 
-- Get `MoproiOSBindings` and `MoproAndroidBindings` through [Rust Setup](https://zkmopro.org/docs/getting-started/rust-setup)
-- Update `modules/mopro/ios/MoproiOSBinding` with `MoproiOSBindings`
-
-- Copy the `MoproAndroidBindings/jniLibs` directory to `modules/mopro/android/src/main/jniLibs`. <br/>
-  And copy `MoproAndroidBindings/uniffi` directory to `modules/mopro/android/src/main/java/uniffi`. <br/>
-
-### 4. Define React Native Module
-
-- Define React Native's module APIs to pass messages between React Native and your desired platforms.
-    - **iOS:**
-        - [`modules/mopro/ios/MoproModule.swift`](modules/mopro/ios/MoproModule.swift)
-    - **Android**
-        - [`modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt`](modules/mopro/android/src/main/java/expo/modules/mopro/MoproModule.kt)
-    - **Browser**
-        - [`modules/mopro/src/MoproModule.web.ts`](modules/mopro/src/MoproModule.web.ts)
-    - **React Native**
-        - [`modules/mopro/index.ts`](modules/mopro/index.ts)
+- Get `MoproReactNativeBindings` through [Getting Started](https://zkmopro.org/docs/getting-started)
+- Update the `MoproReactNativeBindings` folder
 
 ### 5. Use the React Native Module
 
-- For example, in [`app/(tabs)/index.tsx`](<app/(tabs)/index.tsx>)
+- For example, in [`src/App.tsx`](src/App.tsx)
 
     ```ts
     import {
