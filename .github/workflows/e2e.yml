@@ -6,7 +6,6 @@ jobs:
     ios_e2e:
         runs-on: macos-latest
         env:
-            EXPO_NO_WAIT: true
             CI: true
         steps:
             - name: Checkout repo
@@ -29,10 +28,6 @@ jobs:
               run: |
                   brew tap wix/brew
                   brew install applesimutils
-            - name: Boot iOS Simulator
-              run: |
-                  xcrun simctl bootstatus "iPhone 17 Pro" || xcrun simctl boot "iPhone 17 Pro"
-                  xcrun simctl list devices | grep Booted
 
             - name: Build iOS app
               run: |
@@ -43,7 +38,7 @@ jobs:
 
             # Start Metro bundler in background
             - name: Start Metro bundler
-              run: npx expo start --dev-client --port 8081 &
+              run: npm run start
 
             # Give Metro a few seconds to boot before launching Detox
             - name: Wait for Metro
@@ -69,7 +64,6 @@ jobs:
     android_e2e:
         runs-on: ubuntu-latest
         env:
-            EXPO_NO_WAIT: true
             CI: true
 
         steps:
@@ -101,7 +95,7 @@ jobs:
               run: npm run assets
 
             - name: Start Metro bundler
-              run: npx expo start --dev-client --port 8081 &
+              run: npm run start
 
             - name: Wait for Metro
               run: |
