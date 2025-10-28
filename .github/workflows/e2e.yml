@@ -31,10 +31,7 @@ jobs:
                   brew install applesimutils
             - name: Boot iOS Simulator
               run: |
-                  DEVICE_NAME="iPhone 17"
-                  OS_VERSION=$(xcrun simctl list runtimes | grep "iOS 26" | head -n 1 | awk -F'[()]' '{print $2}')
-                  xcrun simctl bootstatus "$DEVICE_NAME" || xcrun simctl boot "$DEVICE_NAME"
-                  xcrun simctl bootstatus "$DEVICE_NAME" -b
+                  xcrun simctl bootstatus "iPhone 17 Pro" || xcrun simctl boot "iPhone 17 Pro"
                   xcrun simctl list devices | grep Booted
 
             - name: Build iOS app
@@ -69,86 +66,80 @@ jobs:
                   name: e2e-screenshots-ios
                   path: e2e/reports/screenshots/
 
-    # TODO: Fix android e2e tests (No space left on device)
-    # android_e2e:
-    #     runs-on: ubuntu-latest
-    #     env:
-    #         EXPO_NO_WAIT: true
-    #         CI: true
+    android_e2e:
+        runs-on: ubuntu-latest
+        env:
+            EXPO_NO_WAIT: true
+            CI: true
 
-    #     steps:
-    #         - name: Checkout repo
-    #           uses: actions/checkout@v3
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
 
-    #         - name: Set up Node.js
-    #           uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 20
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20
 
-    #         - name: Install dependencies
-    #           run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-    #         - name: Install Expo CLI
-    #           run: npm install -g expo-cli
+            - name: Install Maestro
+              run: |
+                  curl -Ls "https://get.maestro.mobile.dev" | bash
+                  echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
-    #         - name: Android SDK
-    #           uses: android-actions/setup-android@v3
+            - name: Android SDK
+              uses: android-actions/setup-android@v3
 
-    #         - name: Setup NDK
-    #           uses: nttld/setup-ndk@v1
-    #           with:
-    #               ndk-version: r26d
+            - name: Setup NDK
+              uses: nttld/setup-ndk@v1
+              with:
+                  ndk-version: r26d
 
-    #         - name: Prebuild
-    #           run: npm run prebuild
+            - name: Prebuild
+              run: npm run assets
 
-    #         - name: Start Metro bundler
-    #           run: npx expo start --dev-client --port 8081 &
+            - name: Start Metro bundler
+              run: npx expo start --dev-client --port 8081 &
 
-    #         - name: Wait for Metro
-    #           run: |
-    #               for i in {1..30}; do
-    #                   if nc -z localhost 8081; then
-    #                   echo "Metro is up!"
-    #                   break
-    #                   fi
-    #                   echo "Waiting for Metro..."
-    #                   sleep 2
-    #               done
+            - name: Wait for Metro
+              run: |
+                  for i in {1..30}; do
+                      if nc -z localhost 8081; then
+                      echo "Metro is up!"
+                      break
+                      fi
+                      echo "Waiting for Metro..."
+                      sleep 2
+                  done
 
-    #         - name: Enable KVM (faster emulator)
-    #           run: |
-    #               echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-    #               sudo udevadm control --reload-rules
-    #               sudo udevadm trigger --name-match=kvm
+            - name: Enable KVM (faster emulator)
+              run: |
+                  echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                  sudo udevadm control --reload-rules
+                  sudo udevadm trigger --name-match=kvm
 
-    #         - name: Clean workspace
-    #           run: |
-    #               echo "Cleaning unused caches..."
-    #               sudo rm -rf $HOME/.gradle/caches/
-    #               sudo rm -rf $HOME/.android/build-cache/
-    #               sudo rm -rf android/app/build/
-    #               sudo rm -rf /tmp/*
-    #               sudo rm -rf /usr/local/lib/android/sdk/system-images
+            - name: Build Android for Detox
+              uses: reactivecircus/android-emulator-runner@v2
+              with:
+                  api-level: 29
+                  target: google_apis
+                  arch: x86_64
+                  disable-animations: true
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
+                  script: npm run e2e:test
 
-    #         - name: Build Android for Detox
-    #           uses: reactivecircus/android-emulator-runner@v2
-    #           with:
-    #               api-level: 29
-    #               target: google_apis
-    #               arch: x86_64
-    #               disable-animations: true
-    #               disk-size: 2048M
-    #               emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-    #               script: npm run e2e:build:android
+            - name: Upload test results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: e2e-test-results-android
+                  path: e2e/reports/android/
 
-    #         - name: Run Android Detox tests
-    #           uses: reactivecircus/android-emulator-runner@v2
-    #           with:
-    #               api-level: 29
-    #               target: google_apis
-    #               arch: x86_64
-    #               disable-animations: true
-    #               disk-size: 2048M
-    #               emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-    #               script: npm run e2e:build:android
+            - name: Upload screenshots
+              uses: actions/upload-artifact@v4
+              if: failure()
+              with:
+                  name: e2e-screenshots-android
+                  path: e2e/reports/screenshots/
