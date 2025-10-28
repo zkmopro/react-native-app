@@ -1,0 +1,22 @@
+appId: mytestlibrary.example
+---
+- launchApp
+- assertVisible: "Circom Proof"
+- assertVisible: "Halo2 Proof"
+- assertVisible: "Noir Proof"
+
+# Test Circom Proof functionality
+- tapOn:
+      id: "circom-input-a"
+- eraseText
+- inputText: 5
+- tapOn:
+      id: "circom-input-b"
+- eraseText
+- inputText: 6
+- tapOn:
+      id: "circom-gen-proof-button"
+- tapOn:
+      id: "circom-verify-proof-button"
+- assertVisible: "true"
+- assertVisible: "[\"30\",\"5\"]"

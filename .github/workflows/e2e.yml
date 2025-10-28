@@ -20,20 +20,29 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Install Expo CLI
-              run: npm install -g expo-cli
+            - name: Install Maestro
+              run: |
+                  curl -Ls "https://get.maestro.mobile.dev" | bash
+                  echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
             - name: Install applesimutils
               run: |
                   brew tap wix/brew
                   brew install applesimutils
+            - name: Boot iOS Simulator
+              run: |
+                  DEVICE_NAME="iPhone 17"
+                  OS_VERSION=$(xcrun simctl list runtimes | grep "iOS 26" | head -n 1 | awk -F'[()]' '{print $2}')
+                  xcrun simctl bootstatus "$DEVICE_NAME" || xcrun simctl boot "$DEVICE_NAME"
+                  xcrun simctl bootstatus "$DEVICE_NAME" -b
+                  xcrun simctl list devices | grep Booted
 
-            - name: Prebuild
-              run: npm run prebuild
-
-            # Build iOS and Android apps for E2E
-            - name: Build iOS for Detox
-              run: npm run e2e:build:ios
+            - name: Build iOS app
+              run: |
+                  cd ios
+                  pod install
+                  cd ..
+                  npm run build:ios
 
             # Start Metro bundler in background
             - name: Start Metro bundler
@@ -43,8 +52,22 @@ jobs:
             - name: Wait for Metro
               run: sleep 20
 
-            - name: Run iOS Detox tests
-              run: npm run e2e:test:ios
+            - name: Run iOS Maestro tests
+              run: npm run e2e:test
+
+            - name: Upload test results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: e2e-test-results-ios
+                  path: e2e/reports/ios/
+
+            - name: Upload screenshots
+              uses: actions/upload-artifact@v4
+              if: failure()
+              with:
+                  name: e2e-screenshots-ios
+                  path: e2e/reports/screenshots/
 
     # TODO: Fix android e2e tests (No space left on device)
     # android_e2e:

@@ -1,0 +1,55 @@
+# Maestro E2E Test Configuration
+# This file contains global configuration for Maestro tests
+
+# Test suite configuration
+testSuite:
+    name: "React Native Proof App E2E Tests"
+    description: "End-to-end tests for the cryptographic proof generation React Native app"
+
+# Global test settings
+global:
+    # Timeout for individual actions (in milliseconds)
+    actionTimeout: 10000
+
+    # Timeout for assertions (in milliseconds)
+    assertionTimeout: 5000
+
+    # Screenshot settings
+    takeScreenshotOnFailure: true
+    takeScreenshotOnSuccess: false
+
+    # Logging level
+    logLevel: "INFO"
+
+# Device configuration
+device:
+    # iOS Simulator settings
+    ios:
+        deviceName: "iPhone 17"
+        osVersion: "26.0"
+
+    # Android Emulator settings
+    android:
+        deviceName: "Pixel_8_API_35"
+        osVersion: "14"
+
+# Test execution settings
+execution:
+    # Parallel execution settings
+    parallel: false
+    maxConcurrentTests: 1
+
+    # Retry settings
+    retryOnFailure: 2
+    retryDelay: 5000
+
+# Reporting settings
+reporting:
+    # Generate HTML reports
+    generateHtmlReport: true
+
+    # Generate JUnit XML reports for CI/CD
+    generateJunitReport: true
+
+    # Report output directory
+    outputDir: "./e2e/reports"
