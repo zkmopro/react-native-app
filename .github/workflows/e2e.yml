@@ -34,7 +34,6 @@ jobs:
                   cd ios
                   pod install
                   cd ..
-                  npm run build:ios
 
             # Start Metro bundler in background
             - name: Start Metro bundler
