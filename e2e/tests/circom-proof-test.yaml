@@ -1,9 +1,10 @@
 appId: mytestlibrary.example
 ---
 - launchApp
-- waitForAnimationToEnd:
-      timeout: 60000 # wait up to 60s
-- assertVisible: "Circom Proof"
+- retry:
+      maxRetries: 10
+      commands:
+          - assertVisible: "Circom Proof"
 - assertVisible: "Halo2 Proof"
 - assertVisible: "Noir Proof"
 

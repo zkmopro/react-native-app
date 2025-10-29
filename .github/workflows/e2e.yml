@@ -7,6 +7,7 @@ jobs:
         runs-on: macos-latest
         env:
             CI: true
+            MAESTRO_CLI_NO_ANALYTICS: true
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
@@ -147,6 +148,11 @@ jobs:
                   echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
                   sudo udevadm control --reload-rules
                   sudo udevadm trigger --name-match=kvm
+            - name: Free up disk space
+              run: |
+                  sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/boost
+                  sudo rm -rf $ANDROID_HOME/ndk || true
+                  docker system prune -af || true
 
             - name: Build Debug APK
               run: |
@@ -159,7 +165,7 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 1"
                   script: mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
