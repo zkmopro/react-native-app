@@ -17,6 +17,12 @@ jobs:
                   node-version: 20
                   cache: "npm"
 
+            - name: Set up JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 21
+
             - name: Install dependencies
               run: npm ci
 
@@ -45,24 +51,14 @@ jobs:
 
             - name: Build and install iOS app
               run: |
-                  # Start Metro bundler in background
-                  npm start &
-                  METRO_PID=$!
-                  sleep 15
+                  xcodebuild -scheme MyTestLibraryExample \
+                  -workspace ios/MyTestLibraryExample.xcworkspace \
+                  -configuration Debug \
+                  -sdk iphonesimulator \
+                  -derivedDataPath build \
+                  -arch arm64
 
-                  # Build and run the app (this works)
-                  npm run ios &
-                  IOS_PID=$!
-                  sleep 60
-
-                  # Kill the processes but keep the app installed
-                  kill $METRO_PID 2>/dev/null || true
-                  kill $IOS_PID 2>/dev/null || true
-                  pkill -f "Metro" || true
-                  pkill -f "MyTestLibraryExample" || true
-
-                  # Verify app is installed
-                  xcrun simctl list apps booted | grep mytestlibrary.example
+                  xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MyTestLibraryExample.app
 
             - name: Run iOS Maestro tests
               run: |
