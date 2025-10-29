@@ -19,6 +19,7 @@ web-build/
 expo-env.d.ts
 # @end expo-cli
 
+build/
 ios/build
 ios/.xcode.env.local
 ios/Pods
