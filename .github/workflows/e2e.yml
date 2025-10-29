@@ -44,7 +44,15 @@ jobs:
               run: sleep 20
 
             - name: Boot iOS Simulator
-              run: xcrun simctl boot "iPhone 16"
+              run: |
+                  xcrun simctl boot "iPhone 16"
+                     xcrun simctl list devices | grep Booted
+                  sleep 10
+
+            - name: Install app to simulator
+              run: |
+                  xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/MyTestLibraryExample.app
+                  xcrun simctl launch booted mytestlibrary.example || echo "App launched manually later"
 
             - name: Run iOS Maestro tests
               run: npm run e2e:test
@@ -130,7 +138,7 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-                  script: adb devices && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && adb shell input keyevent 82 && sleep 10 && npm run e2e:test
+                  script: npm run e2e:test
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
