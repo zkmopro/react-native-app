@@ -1,6 +1,9 @@
 appId: mytestlibrary.example
 ---
 - launchApp
+- waitFor:
+      visible: "Circom Proof"
+      timeout: 60000 # wait up to 60s
 - assertVisible: "Circom Proof"
 - assertVisible: "Halo2 Proof"
 - assertVisible: "Noir Proof"
@@ -19,4 +22,4 @@ appId: mytestlibrary.example
 - tapOn:
       id: "circom-verify-proof-button"
 - assertVisible: "true"
-- assertVisible: "[\"30\",\"5\"]"
+- assertVisible: '["30","5"]'

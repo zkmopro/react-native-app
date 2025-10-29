@@ -150,7 +150,7 @@ jobs:
 
             - name: Build Debug APK
               run: |
-                  npm run build:android:x86
+                  npm run build:android
 
             - name: Test Android with Maestro
               uses: reactivecircus/android-emulator-runner@v2
