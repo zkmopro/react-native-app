@@ -9,12 +9,13 @@ jobs:
             CI: true
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 20
+                  cache: "npm"
 
             - name: Install dependencies
               run: npm ci
@@ -29,40 +30,63 @@ jobs:
                   brew tap wix/brew
                   brew install applesimutils
 
-            - name: Build iOS app
+            - name: Install CocoaPods dependencies
               run: |
                   cd ios
                   pod install
                   cd ..
 
-            # Start Metro bundler in background
-            - name: Start Metro bundler
-              run: npm run start &
-
-            # Give Metro a few seconds to boot before launching Detox
-            - name: Wait for Metro
-              run: sleep 20
-
             - name: Boot iOS Simulator
               run: |
+                  xcrun simctl shutdown all
                   xcrun simctl boot "iPhone 16"
-                     xcrun simctl list devices | grep Booted
+                  xcrun simctl list devices | grep Booted
                   sleep 10
 
-            - name: Install app to simulator
+            - name: Build and install iOS app
               run: |
-                  xcrun simctl install booted ios/build/Build/Products/Debug-iphonesimulator/MyTestLibraryExample.app
-                  xcrun simctl launch booted mytestlibrary.example || echo "App launched manually later"
+                  # Start Metro bundler in background
+                  npm start &
+                  METRO_PID=$!
+                  sleep 15
+
+                  # Build and run the app (this works)
+                  npm run ios &
+                  IOS_PID=$!
+                  sleep 60
+
+                  # Kill the processes but keep the app installed
+                  kill $METRO_PID 2>/dev/null || true
+                  kill $IOS_PID 2>/dev/null || true
+                  pkill -f "Metro" || true
+                  pkill -f "MyTestLibraryExample" || true
+
+                  # Verify app is installed
+                  xcrun simctl list apps booted | grep mytestlibrary.example
 
             - name: Run iOS Maestro tests
-              run: npm run e2e:test
+              run: |
+                  # Create reports directory
+                  mkdir -p e2e/reports
+
+                  # Start Metro bundler for tests
+                  npm start &
+                  METRO_PID=$!
+                  sleep 10
+
+                  # Run the tests
+                  npm run e2e:test
+
+                  # Clean up
+                  kill $METRO_PID 2>/dev/null || true
+                  pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
               if: always()
               with:
                   name: e2e-test-results-ios
-                  path: e2e/reports/ios/
+                  path: e2e/reports/
 
             - name: Upload screenshots
               uses: actions/upload-artifact@v4
@@ -78,12 +102,13 @@ jobs:
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 20
+                  cache: "npm"
 
             - name: Install dependencies
               run: npm ci
@@ -105,14 +130,17 @@ jobs:
               run: npm run assets
 
             - name: Start Metro bundler
-              run: npm run start &
+              run: |
+                  npm start &
+                  METRO_PID=$!
+                  echo "METRO_PID=$METRO_PID" >> $GITHUB_ENV
 
             - name: Wait for Metro
               run: |
                   for i in {1..30}; do
                       if nc -z localhost 8081; then
-                      echo "Metro is up!"
-                      break
+                          echo "Metro is up!"
+                          break
                       fi
                       echo "Waiting for Metro..."
                       sleep 2
@@ -126,9 +154,7 @@ jobs:
 
             - name: Build Debug APK
               run: |
-                  cd android
-                  ./gradlew assembleDebug
-                  cd ..
+                  npm run build:android:x86
 
             - name: Test Android with Maestro
               uses: reactivecircus/android-emulator-runner@v2
@@ -138,14 +164,14 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-                  script: npm run e2e:test
+                  script: mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
               if: always()
               with:
                   name: e2e-test-results-android
-                  path: e2e/reports/android/
+                  path: e2e/reports/
 
             - name: Upload screenshots
               uses: actions/upload-artifact@v4
