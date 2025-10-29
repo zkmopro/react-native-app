@@ -43,6 +43,9 @@ jobs:
             - name: Wait for Metro
               run: sleep 20
 
+            - name: Boot iOS Simulator
+              run: xcrun simctl boot "iPhone 16"
+
             - name: Run iOS Maestro tests
               run: npm run e2e:test
 
@@ -113,7 +116,13 @@ jobs:
                   sudo udevadm control --reload-rules
                   sudo udevadm trigger --name-match=kvm
 
-            - name: Build Android for Detox
+            - name: Build Debug APK
+              run: |
+                  cd android
+                  ./gradlew assembleDebug
+                  cd ..
+
+            - name: Test Android with Maestro
               uses: reactivecircus/android-emulator-runner@v2
               with:
                   api-level: 29
@@ -121,7 +130,7 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-                  script: npm run e2e:test
+                  script: adb devices && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && adb shell input keyevent 82 && sleep 10 && npm run e2e:test
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
