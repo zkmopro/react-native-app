@@ -1,17 +1,14 @@
 const path = require('path');
 const { getDefaultConfig } = require('@react-native/metro-config');
-const { withMetroConfig } = require('react-native-monorepo-config');
 
-const root = path.resolve(__dirname, './MoproReactNativeBindings');
+module.exports = (async () => {
+  const { withMetroConfig } = await import('react-native-monorepo-config');
 
-const config = getDefaultConfig(__dirname);
+  const config = getDefaultConfig(__dirname);
+  config.resolver.assetExts.push('zkey', 'bin', 'json', 'local');
 
-config.resolver.assetExts.push('zkey');
-config.resolver.assetExts.push('bin');
-config.resolver.assetExts.push('json');
-config.resolver.assetExts.push('local');
-
-module.exports = withMetroConfig(config, {
-  root,
-  dirname: __dirname,
-});
+  return withMetroConfig(config, {
+    root: path.resolve(__dirname, './MoproReactNativeBindings'),
+    dirname: __dirname,
+  });
+})();
