@@ -131,23 +131,6 @@ jobs:
             - name: Prebuild
               run: npm run assets
 
-            - name: Start Metro bundler
-              run: |
-                  npm start &
-                  METRO_PID=$!
-                  echo "METRO_PID=$METRO_PID" >> $GITHUB_ENV
-
-            - name: Wait for Metro
-              run: |
-                  for i in {1..30}; do
-                      if nc -z localhost 8081; then
-                          echo "Metro is up!"
-                          break
-                      fi
-                      echo "Waiting for Metro..."
-                      sleep 2
-                  done
-
             - name: Enable KVM (faster emulator)
               run: |
                   echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -171,7 +154,7 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 1"
-                  script: cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
+                  script: npm start & METRO_PID=$! && cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
