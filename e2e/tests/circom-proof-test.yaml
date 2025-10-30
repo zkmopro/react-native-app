@@ -1,15 +1,12 @@
 appId: mytestlibrary.example
 ---
 - launchApp
-- runFlow:
-      when:
-          visible: "Circom Proof"
-          visible: "Halo2 Proof"
-          visible: "Noir Proof"
-      commands:
-         - assertVisible: "Circom Proof"
-         - assertVisible: "Halo2 Proof"
-         - assertVisible: "Noir Proof"
+- extendedWaitUntil:
+    visible: "Circom Proof"
+    timeout: 30000
+- assertVisible: "Circom Proof"
+- assertVisible: "Halo2 Proof"
+- assertVisible: "Noir Proof"
 
 # Test Circom Proof functionality
 - tapOn:
