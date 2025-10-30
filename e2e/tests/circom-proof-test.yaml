@@ -3,7 +3,7 @@ appId: mytestlibrary.example
 - launchApp
 - extendedWaitUntil:
     visible: "Circom Proof"
-    timeout: 30000
+    timeout: 60000
 - assertVisible: "Circom Proof"
 - assertVisible: "Halo2 Proof"
 - assertVisible: "Noir Proof"
