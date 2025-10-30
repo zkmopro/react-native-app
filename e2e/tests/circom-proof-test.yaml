@@ -1,10 +1,11 @@
 appId: mytestlibrary.example
 ---
 - launchApp
-- retry:
-      maxRetries: 10
+- repeat:
+      while:
+          notVisible: "Circom Proof"
       commands:
-          - assertVisible: "Circom Proof"
+         - assertVisible: "Circom Proof"
 - assertVisible: "Halo2 Proof"
 - assertVisible: "Noir Proof"
 

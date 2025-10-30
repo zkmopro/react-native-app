@@ -96,6 +96,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             CI: true
+            MAESTRO_CLI_NO_ANALYTICS: true
 
         steps:
             - name: Checkout repo
@@ -166,7 +167,7 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 1"
-                  script: mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
+                  script: adb install -r android/app/build/outputs/apk/debug/app-debug.apk && mkdir -p e2e/reports && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
