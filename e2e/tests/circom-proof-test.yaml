@@ -1,9 +1,9 @@
 appId: mytestlibrary.example
 ---
 - launchApp
-- repeat:
-      while:
-          notVisible: "Circom Proof"
+- runFlow:
+      when:
+          visible: "Circom Proof"
       commands:
          - assertVisible: "Circom Proof"
 - assertVisible: "Halo2 Proof"
