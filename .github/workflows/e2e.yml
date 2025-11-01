@@ -155,7 +155,7 @@ jobs:
                   target: google_apis
                   arch: x86_64
                   disable-animations: true
-                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 1"
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
                   script: npm start & METRO_PID=$! && cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
