@@ -114,6 +114,12 @@ jobs:
                   node-version: 20
                   cache: "npm"
 
+            - name: Set up JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 21
+
             - name: Install dependencies
               run: npm ci
 
@@ -156,7 +162,7 @@ jobs:
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
-                  script: npm start & METRO_PID=$! && cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && npm run e2e:test && pkill -f "Metro" || true
+                  script: cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && npm start & METRO_PID=$! && sleep 10 && adb shell am start -n mytestlibrary.example/.MainActivity || true && npm run e2e:test && pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
