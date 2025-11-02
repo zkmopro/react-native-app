@@ -158,11 +158,25 @@ jobs:
               uses: reactivecircus/android-emulator-runner@v2
               with:
                   api-level: 29
-                  target: google_apis
+                  target: default
                   arch: x86_64
                   disable-animations: true
                   emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
-                  script: npm start & METRO_PID=$! && cd android && ./gradlew assembleDebug && cd .. && adb install -r android/app/build/outputs/apk/debug/app-debug.apk && npm run e2e:test && pkill -f "Metro" || true
+                  script: |
+                      # Start Metro bundler for tests
+                      npm start & METRO_PID=$!
+
+                      # Build and install the app
+                      cd android && ./gradlew assembleDebug && cd ..
+
+                      # Install the app
+                      adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+
+                      # Run the tests
+                      npm run e2e:test
+
+                      # Clean up
+                      kill $METRO_PID 2>/dev/null || true && pkill -f "Metro" || true
 
             - name: Upload test results
               uses: actions/upload-artifact@v4
