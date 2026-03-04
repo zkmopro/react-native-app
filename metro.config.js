@@ -10,6 +10,9 @@ config.resolver.assetExts.push('zkey');
 config.resolver.assetExts.push('bin');
 config.resolver.assetExts.push('json');
 config.resolver.assetExts.push('local');
+config.resolver.assetExts.push('pk');
+config.resolver.assetExts.push('vk');
+config.resolver.assetExts.push('r1cs');
 
 module.exports = withMetroConfig(config, {
   root,

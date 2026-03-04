@@ -13,19 +13,22 @@ import {
   CircomProof,
   CircomProofResult,
   generateCircomProof,
+  generateGnarkProof,
   generateHalo2Proof,
   generateNoirProof,
   getNoirVerificationKey,
+  GnarkProofResult,
   Halo2ProofResult,
   ProofLib,
   verifyCircomProof,
+  verifyGnarkProof,
   verifyHalo2Proof,
   verifyNoirProof,
 } from 'mopro-ffi';
 import RNFS from 'react-native-fs';
 import { useEffect, useState } from 'react';
 
-type ProofType = 'circom' | 'halo2' | 'noir';
+type ProofType = 'circom' | 'gnark' | 'halo2' | 'noir';
 
 async function loadAssets(fileName: string) {
   const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
@@ -157,6 +160,101 @@ function CircomProofComponent() {
       <ScrollView style={styles.outputScroll}>
         <Text testID="circom-proof-output" style={styles.output}>
           {JSON.stringify(proof)}
+        </Text>
+      </ScrollView>
+    </View>
+  );
+}
+
+function GnarkProofComponent() {
+  const [x, setX] = useState('3');
+  const [proofResult, setProofResult] = useState<GnarkProofResult>({
+    proof: '',
+    publicInputs: '',
+  });
+  const [isValid, setIsValid] = useState<string>('');
+
+  async function genProof(): Promise<void> {
+    const xNum = parseInt(x, 10);
+    if (isNaN(xNum)) return;
+    const y = xNum * xNum * xNum + xNum + 5;
+    const witnessJson = JSON.stringify({ X: x, Y: String(y) });
+
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      const r1csPath = await loadAssets('cubic_circuit.r1cs');
+      const pkPath = await loadAssets('cubic_circuit.pk');
+
+      try {
+        const res: GnarkProofResult = generateGnarkProof(
+          r1csPath.replace('file://', ''),
+          pkPath.replace('file://', ''),
+          witnessJson
+        );
+        setProofResult(res);
+      } catch (error) {
+        console.error('Error generating gnark proof:', error);
+      }
+    }
+  }
+
+  async function verifyProof(): Promise<void> {
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      const r1csPath = await loadAssets('cubic_circuit.r1cs');
+      const vkPath = await loadAssets('cubic_circuit.vk');
+
+      try {
+        const res: boolean = verifyGnarkProof(
+          r1csPath.replace('file://', ''),
+          vkPath.replace('file://', ''),
+          proofResult
+        );
+        setIsValid(res.toString());
+      } catch (error) {
+        console.error('Error verifying gnark proof:', error);
+      }
+    }
+  }
+
+  return (
+    <View style={styles.proofContainer} testID="gnark-proof-container">
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>X</Text>
+        <TextInput
+          testID="gnark-input-x"
+          style={styles.input}
+          placeholder="Enter value for X (e.g. 3)"
+          value={x}
+          onChangeText={setX}
+          keyboardType="numeric"
+        />
+      </View>
+      <Text style={styles.label}>
+        Circuit: Y = X³ + X + 5
+      </Text>
+      <Button
+        testID="gnark-gen-proof-button"
+        title="Generate Gnark Proof"
+        onPress={() => genProof()}
+      />
+      <Button
+        testID="gnark-verify-proof-button"
+        title="Verify Gnark Proof"
+        onPress={() => verifyProof()}
+      />
+      <Text>Proof is Valid:</Text>
+      <Text testID="gnark-valid-output" style={styles.output}>
+        {isValid}
+      </Text>
+      <Text>Public Inputs:</Text>
+      <ScrollView style={styles.outputScroll}>
+        <Text testID="gnark-public-inputs-output" style={styles.output}>
+          {proofResult.publicInputs || '(none)'}
+        </Text>
+      </ScrollView>
+      <Text>Proof (hex):</Text>
+      <ScrollView style={styles.outputScroll}>
+        <Text testID="gnark-proof-output" style={styles.output}>
+          {proofResult.proof ? `${proofResult.proof.slice(0, 80)}...` : '(none)'}
         </Text>
       </ScrollView>
     </View>
@@ -393,6 +491,12 @@ export default function App() {
           <Text style={styles.tabText}>Circom Proof</Text>
         </Pressable>
         <Pressable
+          style={[styles.tab, activeTab === 'gnark' && styles.activeTab]}
+          onPress={() => setActiveTab('gnark')}
+        >
+          <Text style={styles.tabText}>Gnark Proof</Text>
+        </Pressable>
+        <Pressable
           style={[styles.tab, activeTab === 'halo2' && styles.activeTab]}
           onPress={() => setActiveTab('halo2')}
         >
@@ -408,6 +512,8 @@ export default function App() {
 
       {activeTab === 'circom' ? (
         <CircomProofComponent />
+      ) : activeTab === 'gnark' ? (
+        <GnarkProofComponent />
       ) : activeTab === 'halo2' ? (
         <Halo2ProofComponent />
       ) : (
