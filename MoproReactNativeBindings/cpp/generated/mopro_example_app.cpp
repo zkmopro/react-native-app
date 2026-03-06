@@ -103,6 +103,9 @@ typedef void (*UniffiForeignFutureCompleteVoid)(
 RustBuffer uniffi_mopro_example_app_fn_func_generate_circom_proof(
     RustBuffer zkey_path, RustBuffer circuit_inputs, RustBuffer proof_lib,
     RustCallStatus *uniffi_out_err);
+RustBuffer uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+    RustBuffer _r1cs_path, RustBuffer _pk_path, RustBuffer _witness_json,
+    RustCallStatus *uniffi_out_err);
 RustBuffer uniffi_mopro_example_app_fn_func_generate_halo2_proof(
     RustBuffer _srs_path, RustBuffer _pk_path, RustBuffer _circuit_inputs,
     RustCallStatus *uniffi_out_err);
@@ -117,6 +120,9 @@ RustBuffer uniffi_mopro_example_app_fn_func_mopro_hello_world(
     RustCallStatus *uniffi_out_err);
 int8_t uniffi_mopro_example_app_fn_func_verify_circom_proof(
     RustBuffer zkey_path, RustBuffer proof_result, RustBuffer proof_lib,
+    RustCallStatus *uniffi_out_err);
+int8_t uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+    RustBuffer _r1cs_path, RustBuffer _vk_path, RustBuffer _proof_result,
     RustCallStatus *uniffi_out_err);
 int8_t uniffi_mopro_example_app_fn_func_verify_halo2_proof(
     RustBuffer _srs_path, RustBuffer _vk_path, RustBuffer _proof,
@@ -253,11 +259,13 @@ void ffi_mopro_example_app_rust_future_free_void(
 void ffi_mopro_example_app_rust_future_complete_void(
     /*handle*/ uint64_t handle, RustCallStatus *uniffi_out_err);
 uint16_t uniffi_mopro_example_app_checksum_func_generate_circom_proof();
+uint16_t uniffi_mopro_example_app_checksum_func_generate_gnark_proof();
 uint16_t uniffi_mopro_example_app_checksum_func_generate_halo2_proof();
 uint16_t uniffi_mopro_example_app_checksum_func_generate_noir_proof();
 uint16_t uniffi_mopro_example_app_checksum_func_get_noir_verification_key();
 uint16_t uniffi_mopro_example_app_checksum_func_mopro_hello_world();
 uint16_t uniffi_mopro_example_app_checksum_func_verify_circom_proof();
+uint16_t uniffi_mopro_example_app_checksum_func_verify_gnark_proof();
 uint16_t uniffi_mopro_example_app_checksum_func_verify_halo2_proof();
 uint16_t uniffi_mopro_example_app_checksum_func_verify_noir_proof();
 uint32_t ffi_mopro_example_app_uniffi_contract_version();
@@ -1700,6 +1708,18 @@ NativeMoproExampleApp::NativeMoproExampleApp(
                 ->cpp_uniffi_mopro_example_app_fn_func_generate_circom_proof(
                     rt, thisVal, args, count);
           });
+  props["ubrn_uniffi_mopro_example_app_fn_func_generate_gnark_proof"] =
+      jsi::Function::createFromHostFunction(
+          rt,
+          jsi::PropNameID::forAscii(
+              rt, "ubrn_uniffi_mopro_example_app_fn_func_generate_gnark_proof"),
+          3,
+          [this](jsi::Runtime &rt, const jsi::Value &thisVal,
+                 const jsi::Value *args, size_t count) -> jsi::Value {
+            return this
+                ->cpp_uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+                    rt, thisVal, args, count);
+          });
   props["ubrn_uniffi_mopro_example_app_fn_func_generate_halo2_proof"] =
       jsi::Function::createFromHostFunction(
           rt,
@@ -1759,6 +1779,18 @@ NativeMoproExampleApp::NativeMoproExampleApp(
                 ->cpp_uniffi_mopro_example_app_fn_func_verify_circom_proof(
                     rt, thisVal, args, count);
           });
+  props["ubrn_uniffi_mopro_example_app_fn_func_verify_gnark_proof"] =
+      jsi::Function::createFromHostFunction(
+          rt,
+          jsi::PropNameID::forAscii(
+              rt, "ubrn_uniffi_mopro_example_app_fn_func_verify_gnark_proof"),
+          3,
+          [this](jsi::Runtime &rt, const jsi::Value &thisVal,
+                 const jsi::Value *args, size_t count) -> jsi::Value {
+            return this
+                ->cpp_uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+                    rt, thisVal, args, count);
+          });
   props["ubrn_uniffi_mopro_example_app_fn_func_verify_halo2_proof"] =
       jsi::Function::createFromHostFunction(
           rt,
@@ -1792,6 +1824,18 @@ NativeMoproExampleApp::NativeMoproExampleApp(
                  const jsi::Value *args, size_t count) -> jsi::Value {
             return this
                 ->cpp_uniffi_mopro_example_app_checksum_func_generate_circom_proof(
+                    rt, thisVal, args, count);
+          });
+  props["ubrn_uniffi_mopro_example_app_checksum_func_generate_gnark_proof"] =
+      jsi::Function::createFromHostFunction(
+          rt,
+          jsi::PropNameID::forAscii(rt, "ubrn_uniffi_mopro_example_app_"
+                                        "checksum_func_generate_gnark_proof"),
+          0,
+          [this](jsi::Runtime &rt, const jsi::Value &thisVal,
+                 const jsi::Value *args, size_t count) -> jsi::Value {
+            return this
+                ->cpp_uniffi_mopro_example_app_checksum_func_generate_gnark_proof(
                     rt, thisVal, args, count);
           });
   props["ubrn_uniffi_mopro_example_app_checksum_func_generate_halo2_proof"] =
@@ -1853,6 +1897,19 @@ NativeMoproExampleApp::NativeMoproExampleApp(
                  const jsi::Value *args, size_t count) -> jsi::Value {
             return this
                 ->cpp_uniffi_mopro_example_app_checksum_func_verify_circom_proof(
+                    rt, thisVal, args, count);
+          });
+  props["ubrn_uniffi_mopro_example_app_checksum_func_verify_gnark_proof"] =
+      jsi::Function::createFromHostFunction(
+          rt,
+          jsi::PropNameID::forAscii(
+              rt,
+              "ubrn_uniffi_mopro_example_app_checksum_func_verify_gnark_proof"),
+          0,
+          [this](jsi::Runtime &rt, const jsi::Value &thisVal,
+                 const jsi::Value *args, size_t count) -> jsi::Value {
+            return this
+                ->cpp_uniffi_mopro_example_app_checksum_func_verify_gnark_proof(
                     rt, thisVal, args, count);
           });
   props["ubrn_uniffi_mopro_example_app_checksum_func_verify_halo2_proof"] =
@@ -1981,6 +2038,26 @@ jsi::Value NativeMoproExampleApp::
                                                                value);
 }
 jsi::Value NativeMoproExampleApp::
+    cpp_uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+        jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+        size_t count) {
+  RustCallStatus status =
+      uniffi::mopro_example_app::Bridging<RustCallStatus>::rustSuccess(rt);
+  auto value = uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[0]),
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[1]),
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[2]),
+      &status);
+  uniffi::mopro_example_app::Bridging<RustCallStatus>::copyIntoJs(
+      rt, callInvoker, status, args[count - 1]);
+
+  return uniffi::mopro_example_app::Bridging<RustBuffer>::toJs(rt, callInvoker,
+                                                               value);
+}
+jsi::Value NativeMoproExampleApp::
     cpp_uniffi_mopro_example_app_fn_func_generate_halo2_proof(
         jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
         size_t count) {
@@ -2075,6 +2152,25 @@ NativeMoproExampleApp::cpp_uniffi_mopro_example_app_fn_func_verify_circom_proof(
   return uniffi_jsi::Bridging<int8_t>::toJs(rt, callInvoker, value);
 }
 jsi::Value
+NativeMoproExampleApp::cpp_uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+    jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+    size_t count) {
+  RustCallStatus status =
+      uniffi::mopro_example_app::Bridging<RustCallStatus>::rustSuccess(rt);
+  auto value = uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[0]),
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[1]),
+      uniffi::mopro_example_app::Bridging<RustBuffer>::fromJs(rt, callInvoker,
+                                                              args[2]),
+      &status);
+  uniffi::mopro_example_app::Bridging<RustCallStatus>::copyIntoJs(
+      rt, callInvoker, status, args[count - 1]);
+
+  return uniffi_jsi::Bridging<int8_t>::toJs(rt, callInvoker, value);
+}
+jsi::Value
 NativeMoproExampleApp::cpp_uniffi_mopro_example_app_fn_func_verify_halo2_proof(
     jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
     size_t count) {
@@ -2124,6 +2220,14 @@ jsi::Value NativeMoproExampleApp::
   return uniffi_jsi::Bridging<uint16_t>::toJs(rt, callInvoker, value);
 }
 jsi::Value NativeMoproExampleApp::
+    cpp_uniffi_mopro_example_app_checksum_func_generate_gnark_proof(
+        jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+        size_t count) {
+  auto value = uniffi_mopro_example_app_checksum_func_generate_gnark_proof();
+
+  return uniffi_jsi::Bridging<uint16_t>::toJs(rt, callInvoker, value);
+}
+jsi::Value NativeMoproExampleApp::
     cpp_uniffi_mopro_example_app_checksum_func_generate_halo2_proof(
         jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
         size_t count) {
@@ -2161,6 +2265,14 @@ jsi::Value NativeMoproExampleApp::
         jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
         size_t count) {
   auto value = uniffi_mopro_example_app_checksum_func_verify_circom_proof();
+
+  return uniffi_jsi::Bridging<uint16_t>::toJs(rt, callInvoker, value);
+}
+jsi::Value NativeMoproExampleApp::
+    cpp_uniffi_mopro_example_app_checksum_func_verify_gnark_proof(
+        jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+        size_t count) {
+  auto value = uniffi_mopro_example_app_checksum_func_verify_gnark_proof();
 
   return uniffi_jsi::Bridging<uint16_t>::toJs(rt, callInvoker, value);
 }

@@ -31,6 +31,9 @@ protected:
   jsi::Value cpp_uniffi_mopro_example_app_fn_func_generate_circom_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
+  jsi::Value cpp_uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+      jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+      size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_fn_func_generate_halo2_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
@@ -46,6 +49,9 @@ protected:
   jsi::Value cpp_uniffi_mopro_example_app_fn_func_verify_circom_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
+  jsi::Value cpp_uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+      jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+      size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_fn_func_verify_halo2_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
@@ -53,6 +59,9 @@ protected:
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_checksum_func_generate_circom_proof(
+      jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+      size_t count);
+  jsi::Value cpp_uniffi_mopro_example_app_checksum_func_generate_gnark_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_checksum_func_generate_halo2_proof(
@@ -69,6 +78,9 @@ protected:
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_checksum_func_verify_circom_proof(
+      jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
+      size_t count);
+  jsi::Value cpp_uniffi_mopro_example_app_checksum_func_verify_gnark_proof(
       jsi::Runtime &rt, const jsi::Value &thisVal, const jsi::Value *args,
       size_t count);
   jsi::Value cpp_uniffi_mopro_example_app_checksum_func_verify_halo2_proof(

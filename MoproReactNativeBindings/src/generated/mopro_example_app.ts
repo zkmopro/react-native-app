@@ -77,6 +77,20 @@ export function generateCircomProof(zkeyPath: string, circuitInputs: string, pro
             /*liftString:*/ FfiConverterString.lift,
     ));
     }
+export function generateGnarkProof(r1csPath: string, pkPath: string, witnessJson: string): GnarkProofResult /*throws*/ {
+    return FfiConverterTypeGnarkProofResult.lift(
+        uniffiCaller.rustCallWithError(
+            /*liftError:*/ FfiConverterTypeMoproError.lift.bind(FfiConverterTypeMoproError),
+            /*caller:*/ (callStatus) => {
+                return nativeModule().ubrn_uniffi_mopro_example_app_fn_func_generate_gnark_proof(
+        FfiConverterString.lower(r1csPath),
+        FfiConverterString.lower(pkPath),
+        FfiConverterString.lower(witnessJson),
+                callStatus);
+            },
+            /*liftString:*/ FfiConverterString.lift,
+    ));
+    }
 export function generateHalo2Proof(srsPath: string, pkPath: string, circuitInputs: Map<string, Array<string>>): Halo2ProofResult /*throws*/ {
     return FfiConverterTypeHalo2ProofResult.lift(
         uniffiCaller.rustCallWithError(
@@ -145,6 +159,20 @@ export function verifyCircomProof(zkeyPath: string, proofResult: CircomProofResu
         FfiConverterString.lower(zkeyPath),
         FfiConverterTypeCircomProofResult.lower(proofResult),
         FfiConverterTypeProofLib.lower(proofLib),
+                callStatus);
+            },
+            /*liftString:*/ FfiConverterString.lift,
+    ));
+    }
+export function verifyGnarkProof(r1csPath: string, vkPath: string, proofResult: GnarkProofResult): boolean /*throws*/ {
+    return FfiConverterBool.lift(
+        uniffiCaller.rustCallWithError(
+            /*liftError:*/ FfiConverterTypeMoproError.lift.bind(FfiConverterTypeMoproError),
+            /*caller:*/ (callStatus) => {
+                return nativeModule().ubrn_uniffi_mopro_example_app_fn_func_verify_gnark_proof(
+        FfiConverterString.lower(r1csPath),
+        FfiConverterString.lower(vkPath),
+        FfiConverterTypeGnarkProofResult.lower(proofResult),
                 callStatus);
             },
             /*liftString:*/ FfiConverterString.lift,
@@ -437,6 +465,63 @@ const FfiConverterTypeG2 = (() => {
 })();
 
 
+export type GnarkProofResult = {
+    proof: string,
+    publicInputs: string
+}
+
+/**
+ * Generated factory for {@link GnarkProofResult} record objects.
+ */
+export const GnarkProofResult = (() => {
+    const defaults = () => ({
+    });
+    const create = (() => {
+        return uniffiCreateRecord<GnarkProofResult, ReturnType<typeof defaults>>(defaults);
+    })();
+    return Object.freeze({
+        /**
+         * Create a frozen instance of {@link GnarkProofResult}, with defaults specified
+         * in Rust, in the {@link mopro_example_app} crate.
+         */
+        create,
+
+        /**
+         * Create a frozen instance of {@link GnarkProofResult}, with defaults specified
+         * in Rust, in the {@link mopro_example_app} crate.
+         */
+        new: create,
+
+        /**
+         * Defaults specified in the {@link mopro_example_app} crate.
+         */
+        defaults: () => Object.freeze(defaults()) as Partial<GnarkProofResult>,
+    });
+})();
+
+const FfiConverterTypeGnarkProofResult = (() => {
+    type TypeName = GnarkProofResult;
+    class FFIConverter extends AbstractFfiConverterByteArray<TypeName> {
+        read(from: RustBuffer): TypeName {
+            return {
+                proof: FfiConverterString.read(from), 
+                publicInputs: FfiConverterString.read(from)
+            };
+        }
+        write(value: TypeName, into: RustBuffer): void {
+            FfiConverterString.write(value.proof, into);
+            FfiConverterString.write(value.publicInputs, into);
+        }
+        allocationSize(value: TypeName): number {
+            return FfiConverterString.allocationSize(value.proof) + 
+            FfiConverterString.allocationSize(value.publicInputs);
+            
+        }
+    };
+    return new FFIConverter();
+})();
+
+
 export type Halo2ProofResult = {
     proof: ArrayBuffer,
     inputs: ArrayBuffer
@@ -511,7 +596,8 @@ const FfiConverterString = uniffiCreateFfiConverterString(stringConverter);
 export enum MoproError_Tags {
     CircomError = "CircomError",
     Halo2Error = "Halo2Error",
-    NoirError = "NoirError"
+    NoirError = "NoirError",
+    GnarkError = "GnarkError"
 }
 export const MoproError = (() => {
     
@@ -649,6 +735,51 @@ export const MoproError = (() => {
         }
 
     }
+    
+
+    type GnarkError__interface = {
+        tag: MoproError_Tags.GnarkError;
+        inner: Readonly<
+[string
+]>
+    };
+
+    
+    class GnarkError_ extends UniffiError implements GnarkError__interface {
+        /**
+         * @private
+         * This field is private and should not be used, use `tag` instead.
+         */
+        readonly [uniffiTypeNameSymbol] = "MoproError";
+        readonly tag = MoproError_Tags.GnarkError;
+        readonly inner: Readonly<
+[string
+]>;
+        constructor(v0: string) {
+            super("MoproError", "GnarkError");
+            this.inner = Object.freeze([v0]);
+        }
+
+        static new(v0: string): GnarkError_ {
+            return new GnarkError_(v0);
+        }
+
+        static instanceOf(obj: any): obj is GnarkError_ {
+            return obj.tag === MoproError_Tags.GnarkError;
+        }
+
+        
+        static hasInner(obj: any): obj is GnarkError_ {
+            return GnarkError_.instanceOf(obj);
+        }
+
+        static getInner(obj: GnarkError_): Readonly<
+[string
+]> {
+            return obj.inner;
+        }
+
+    }
 
     function instanceOf(obj: any): obj is MoproError {
         return obj[uniffiTypeNameSymbol] === "MoproError";
@@ -658,7 +789,8 @@ export const MoproError = (() => {
         instanceOf,
   CircomError: CircomError_, 
   Halo2Error: Halo2Error_, 
-  NoirError: NoirError_
+  NoirError: NoirError_, 
+  GnarkError: GnarkError_
     });
 
 })();
@@ -679,6 +811,7 @@ const FfiConverterTypeMoproError = (() => {
                 case 1: return new MoproError.CircomError(FfiConverterString.read(from));
                 case 2: return new MoproError.Halo2Error(FfiConverterString.read(from));
                 case 3: return new MoproError.NoirError(FfiConverterString.read(from));
+                case 4: return new MoproError.GnarkError(FfiConverterString.read(from));
                 default: throw new UniffiInternalError.UnexpectedEnumCase();
             }
         }
@@ -698,6 +831,12 @@ const FfiConverterTypeMoproError = (() => {
                 }
                 case MoproError_Tags.NoirError: {
                     ordinalConverter.write(3, into);
+                    const inner = value.inner;
+                    FfiConverterString.write(inner[0], into);
+                    return;
+                }
+                case MoproError_Tags.GnarkError: {
+                    ordinalConverter.write(4, into);
                     const inner = value.inner;
                     FfiConverterString.write(inner[0], into);
                     return;
@@ -724,6 +863,12 @@ const FfiConverterTypeMoproError = (() => {
                 case MoproError_Tags.NoirError: {
                     const inner = value.inner;
                     let size = ordinalConverter.allocationSize(3);
+                    size += FfiConverterString.allocationSize(inner[0]);
+                    return size;
+                }
+                case MoproError_Tags.GnarkError: {
+                    const inner = value.inner;
+                    let size = ordinalConverter.allocationSize(4);
                     size += FfiConverterString.allocationSize(inner[0]);
                     return size;
                 }
@@ -800,6 +945,9 @@ function uniffiEnsureInitialized() {
     if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_generate_circom_proof() !== 27552) {
         throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_generate_circom_proof");
     }
+    if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_generate_gnark_proof() !== 32154) {
+        throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_generate_gnark_proof");
+    }
     if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_generate_halo2_proof() !== 51520) {
         throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_generate_halo2_proof");
     }
@@ -814,6 +962,9 @@ function uniffiEnsureInitialized() {
     }
     if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_verify_circom_proof() !== 8858) {
         throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_verify_circom_proof");
+    }
+    if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_verify_gnark_proof() !== 64845) {
+        throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_verify_gnark_proof");
     }
     if (nativeModule().ubrn_uniffi_mopro_example_app_checksum_func_verify_halo2_proof() !== 142) {
         throw new UniffiInternalError.ApiChecksumMismatch("uniffi_mopro_example_app_checksum_func_verify_halo2_proof");
@@ -831,6 +982,7 @@ export default Object.freeze({
     FfiConverterTypeCircomProofResult,
     FfiConverterTypeG1,
     FfiConverterTypeG2,
+    FfiConverterTypeGnarkProofResult,
     FfiConverterTypeHalo2ProofResult,
     FfiConverterTypeMoproError,
     FfiConverterTypeProofLib,
