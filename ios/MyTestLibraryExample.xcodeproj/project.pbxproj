@@ -9,38 +9,64 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-MyTestLibraryExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-MyTestLibraryExample.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		144EC028F66A4D7A9D6F4903 /* noir_multiplier2.srs in Resources */ = {isa = PBXBuildFile; fileRef = 3CB936EAEA104304A8573A73 /* noir_multiplier2.srs */; };
+		1A2EC5BF41BB438BA436D2C8 /* noir_multiplier2.vk in Resources */ = {isa = PBXBuildFile; fileRef = 3232ABCF3AE54B208760650A /* noir_multiplier2.vk */; };
+		1BFCF203051D43FB989CDC1E /* hyperplonk_fibonacci_srs.bin in Resources */ = {isa = PBXBuildFile; fileRef = E75090428CE9403BACAD33F4 /* hyperplonk_fibonacci_srs.bin */; };
+		1F8B33048A544162B8233808 /* noir_multiplier2.json in Resources */ = {isa = PBXBuildFile; fileRef = 071996BD8DA34FB4A4E18E70 /* noir_multiplier2.json */; };
 		429ABBC750D24139A5DFCB28 /* plonk_fibonacci_vk.bin in Resources */ = {isa = PBXBuildFile; fileRef = C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */; };
+		517A1771551344C483D7ED43 /* multiplier2_wc.dat in Resources */ = {isa = PBXBuildFile; fileRef = 46480AA9AB81419E91193EF2 /* multiplier2_wc.dat */; };
+		5492DBDB9C70499280EC36F2 /* noir_multiplier2_poseidon.vk in Resources */ = {isa = PBXBuildFile; fileRef = 1C0DB419C6784091BA67D141 /* noir_multiplier2_poseidon.vk */; };
 		5BB928D9BDFD4854A75C99D3 /* cubic_circuit.r1cs in Resources */ = {isa = PBXBuildFile; fileRef = AE43BBF7FBCC40579A10CA70 /* cubic_circuit.r1cs */; };
 		66382C45A9114D0FA2057B47 /* cubic_circuit.vk in Resources */ = {isa = PBXBuildFile; fileRef = DB4789A818BD47A8BE8D12E8 /* cubic_circuit.vk */; };
 		6D02A5C77C144D95933C3FFD /* plonk_fibonacci_srs.bin in Resources */ = {isa = PBXBuildFile; fileRef = A75EBD7E6671443284BEEF36 /* plonk_fibonacci_srs.bin */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		824F58E859864D6083795149 /* plonk_fibonacci_pk.bin in Resources */ = {isa = PBXBuildFile; fileRef = 9C8FAA0995EA45B3BCC3C0BA /* plonk_fibonacci_pk.bin */; };
-		8A851A0869FD414B98F51D6E /* noir_multiplier2.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E9B7DF37D93487DB2B82672 /* noir_multiplier2.json */; };
+		950E7663E0FB4B29A6722E83 /* gemini_fibonacci_pk.bin in Resources */ = {isa = PBXBuildFile; fileRef = F5564A0F93EB42F58DF64006 /* gemini_fibonacci_pk.bin */; };
+		992A9D0121E542D78C612E58 /* multiplier2_wc.cpp in Resources */ = {isa = PBXBuildFile; fileRef = 29D7CEAABBE14AF588ACB507 /* multiplier2_wc.cpp */; };
+		9C004D1A2DD94AB99155237A /* multiplier2_wc_final.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 1977B9CBD6034C3496AC6A97 /* multiplier2_wc_final.zkey */; };
 		9F3F52EE09C593B070C354DB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		A1C27AE6BD444AC5B454F545 /* gemini_fibonacci_vk.bin in Resources */ = {isa = PBXBuildFile; fileRef = 08162F6C091944E382F55D71 /* gemini_fibonacci_vk.bin */; };
 		B9E15878C1894548B3F410D8 /* cubic_circuit.pk in Resources */ = {isa = PBXBuildFile; fileRef = 62BDED5BA01C4AD6A1C9728A /* cubic_circuit.pk */; };
+		BA1C48EFFC504D10B5D239A5 /* multiplier2_bls_final.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 6E50DA020F234E1AA0441AD8 /* multiplier2_bls_final.zkey */; };
+		C47B926D8EF7401FBD4D3CB9 /* hyperplonk_fibonacci_vk.bin in Resources */ = {isa = PBXBuildFile; fileRef = F87F89B52AF34CF49A2A31E5 /* hyperplonk_fibonacci_vk.bin */; };
 		D7011D28E17D45C2BE257368 /* multiplier2_final.zkey in Resources */ = {isa = PBXBuildFile; fileRef = 206F42B759ED439DA8FFF749 /* multiplier2_final.zkey */; };
+		D898840890824E7E992B51EE /* gemini_fibonacci_srs.bin in Resources */ = {isa = PBXBuildFile; fileRef = D62DFD1F12B14F10B827AB3E /* gemini_fibonacci_srs.bin */; };
+		EA86EBF3F08742E4A47B3AF3 /* hyperplonk_fibonacci_pk.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4364327AAC744117B4133177 /* hyperplonk_fibonacci_pk.bin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		071996BD8DA34FB4A4E18E70 /* noir_multiplier2.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.json; path = ../assets/keys/noir_multiplier2.json; sourceTree = "<group>"; };
+		08162F6C091944E382F55D71 /* gemini_fibonacci_vk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = gemini_fibonacci_vk.bin; path = ../assets/keys/gemini_fibonacci_vk.bin; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MyTestLibraryExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTestLibraryExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MyTestLibraryExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MyTestLibraryExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = MyTestLibraryExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1977B9CBD6034C3496AC6A97 /* multiplier2_wc_final.zkey */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_wc_final.zkey; path = ../assets/keys/multiplier2_wc_final.zkey; sourceTree = "<group>"; };
+		1C0DB419C6784091BA67D141 /* noir_multiplier2_poseidon.vk */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2_poseidon.vk; path = ../assets/keys/noir_multiplier2_poseidon.vk; sourceTree = "<group>"; };
 		206F42B759ED439DA8FFF749 /* multiplier2_final.zkey */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_final.zkey; path = ../assets/keys/multiplier2_final.zkey; sourceTree = "<group>"; };
+		29D7CEAABBE14AF588ACB507 /* multiplier2_wc.cpp */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_wc.cpp; path = ../assets/keys/multiplier2_wc.cpp; sourceTree = "<group>"; };
+		3232ABCF3AE54B208760650A /* noir_multiplier2.vk */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.vk; path = ../assets/keys/noir_multiplier2.vk; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-MyTestLibraryExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTestLibraryExample.debug.xcconfig"; path = "Target Support Files/Pods-MyTestLibraryExample/Pods-MyTestLibraryExample.debug.xcconfig"; sourceTree = "<group>"; };
+		3CB936EAEA104304A8573A73 /* noir_multiplier2.srs */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.srs; path = ../assets/keys/noir_multiplier2.srs; sourceTree = "<group>"; };
+		4364327AAC744117B4133177 /* hyperplonk_fibonacci_pk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = hyperplonk_fibonacci_pk.bin; path = ../assets/keys/hyperplonk_fibonacci_pk.bin; sourceTree = "<group>"; };
+		46480AA9AB81419E91193EF2 /* multiplier2_wc.dat */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_wc.dat; path = ../assets/keys/multiplier2_wc.dat; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-MyTestLibraryExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTestLibraryExample.release.xcconfig"; path = "Target Support Files/Pods-MyTestLibraryExample/Pods-MyTestLibraryExample.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-MyTestLibraryExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyTestLibraryExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62BDED5BA01C4AD6A1C9728A /* cubic_circuit.pk */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = cubic_circuit.pk; path = ../assets/keys/cubic_circuit.pk; sourceTree = "<group>"; };
+		6E50DA020F234E1AA0441AD8 /* multiplier2_bls_final.zkey */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = multiplier2_bls_final.zkey; path = ../assets/keys/multiplier2_bls_final.zkey; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MyTestLibraryExample/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MyTestLibraryExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C8FAA0995EA45B3BCC3C0BA /* plonk_fibonacci_pk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_pk.bin; path = ../assets/keys/plonk_fibonacci_pk.bin; sourceTree = "<group>"; };
-		9E9B7DF37D93487DB2B82672 /* noir_multiplier2.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = noir_multiplier2.json; path = ../assets/keys/noir_multiplier2.json; sourceTree = "<group>"; };
 		A75EBD7E6671443284BEEF36 /* plonk_fibonacci_srs.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_srs.bin; path = ../assets/keys/plonk_fibonacci_srs.bin; sourceTree = "<group>"; };
 		AE43BBF7FBCC40579A10CA70 /* cubic_circuit.r1cs */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = cubic_circuit.r1cs; path = ../assets/keys/cubic_circuit.r1cs; sourceTree = "<group>"; };
 		C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = plonk_fibonacci_vk.bin; path = ../assets/keys/plonk_fibonacci_vk.bin; sourceTree = "<group>"; };
+		D62DFD1F12B14F10B827AB3E /* gemini_fibonacci_srs.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = gemini_fibonacci_srs.bin; path = ../assets/keys/gemini_fibonacci_srs.bin; sourceTree = "<group>"; };
 		DB4789A818BD47A8BE8D12E8 /* cubic_circuit.vk */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = cubic_circuit.vk; path = ../assets/keys/cubic_circuit.vk; sourceTree = "<group>"; };
+		E75090428CE9403BACAD33F4 /* hyperplonk_fibonacci_srs.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = hyperplonk_fibonacci_srs.bin; path = ../assets/keys/hyperplonk_fibonacci_srs.bin; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F5564A0F93EB42F58DF64006 /* gemini_fibonacci_pk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = gemini_fibonacci_pk.bin; path = ../assets/keys/gemini_fibonacci_pk.bin; sourceTree = "<group>"; };
+		F87F89B52AF34CF49A2A31E5 /* hyperplonk_fibonacci_vk.bin */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = hyperplonk_fibonacci_vk.bin; path = ../assets/keys/hyperplonk_fibonacci_vk.bin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +106,26 @@
 			isa = PBXGroup;
 			children = (
 				206F42B759ED439DA8FFF749 /* multiplier2_final.zkey */,
-				9E9B7DF37D93487DB2B82672 /* noir_multiplier2.json */,
 				9C8FAA0995EA45B3BCC3C0BA /* plonk_fibonacci_pk.bin */,
 				A75EBD7E6671443284BEEF36 /* plonk_fibonacci_srs.bin */,
 				C2F46347CB0E49819813C0B9 /* plonk_fibonacci_vk.bin */,
 				62BDED5BA01C4AD6A1C9728A /* cubic_circuit.pk */,
 				AE43BBF7FBCC40579A10CA70 /* cubic_circuit.r1cs */,
 				DB4789A818BD47A8BE8D12E8 /* cubic_circuit.vk */,
+				071996BD8DA34FB4A4E18E70 /* noir_multiplier2.json */,
+				1C0DB419C6784091BA67D141 /* noir_multiplier2_poseidon.vk */,
+				3CB936EAEA104304A8573A73 /* noir_multiplier2.srs */,
+				29D7CEAABBE14AF588ACB507 /* multiplier2_wc.cpp */,
+				E75090428CE9403BACAD33F4 /* hyperplonk_fibonacci_srs.bin */,
+				46480AA9AB81419E91193EF2 /* multiplier2_wc.dat */,
+				3232ABCF3AE54B208760650A /* noir_multiplier2.vk */,
+				6E50DA020F234E1AA0441AD8 /* multiplier2_bls_final.zkey */,
+				D62DFD1F12B14F10B827AB3E /* gemini_fibonacci_srs.bin */,
+				F5564A0F93EB42F58DF64006 /* gemini_fibonacci_pk.bin */,
+				4364327AAC744117B4133177 /* hyperplonk_fibonacci_pk.bin */,
+				F87F89B52AF34CF49A2A31E5 /* hyperplonk_fibonacci_vk.bin */,
+				1977B9CBD6034C3496AC6A97 /* multiplier2_wc_final.zkey */,
+				08162F6C091944E382F55D71 /* gemini_fibonacci_vk.bin */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -194,13 +233,26 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9F3F52EE09C593B070C354DB /* PrivacyInfo.xcprivacy in Resources */,
 				D7011D28E17D45C2BE257368 /* multiplier2_final.zkey in Resources */,
-				8A851A0869FD414B98F51D6E /* noir_multiplier2.json in Resources */,
 				824F58E859864D6083795149 /* plonk_fibonacci_pk.bin in Resources */,
 				6D02A5C77C144D95933C3FFD /* plonk_fibonacci_srs.bin in Resources */,
 				429ABBC750D24139A5DFCB28 /* plonk_fibonacci_vk.bin in Resources */,
 				B9E15878C1894548B3F410D8 /* cubic_circuit.pk in Resources */,
 				5BB928D9BDFD4854A75C99D3 /* cubic_circuit.r1cs in Resources */,
 				66382C45A9114D0FA2057B47 /* cubic_circuit.vk in Resources */,
+				1F8B33048A544162B8233808 /* noir_multiplier2.json in Resources */,
+				5492DBDB9C70499280EC36F2 /* noir_multiplier2_poseidon.vk in Resources */,
+				144EC028F66A4D7A9D6F4903 /* noir_multiplier2.srs in Resources */,
+				992A9D0121E542D78C612E58 /* multiplier2_wc.cpp in Resources */,
+				1BFCF203051D43FB989CDC1E /* hyperplonk_fibonacci_srs.bin in Resources */,
+				517A1771551344C483D7ED43 /* multiplier2_wc.dat in Resources */,
+				1A2EC5BF41BB438BA436D2C8 /* noir_multiplier2.vk in Resources */,
+				BA1C48EFFC504D10B5D239A5 /* multiplier2_bls_final.zkey in Resources */,
+				D898840890824E7E992B51EE /* gemini_fibonacci_srs.bin in Resources */,
+				950E7663E0FB4B29A6722E83 /* gemini_fibonacci_pk.bin in Resources */,
+				EA86EBF3F08742E4A47B3AF3 /* hyperplonk_fibonacci_pk.bin in Resources */,
+				C47B926D8EF7401FBD4D3CB9 /* hyperplonk_fibonacci_vk.bin in Resources */,
+				9C004D1A2DD94AB99155237A /* multiplier2_wc_final.zkey in Resources */,
+				A1C27AE6BD444AC5B454F545 /* gemini_fibonacci_vk.bin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

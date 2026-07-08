@@ -2,36 +2,88 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/keys/noir_multiplier2.json",
-      "sha1": "7cdcca6d7dc26609a9a01c1f279b1d4db68c144e"
-    },
-    {
       "path": "assets/keys/cubic_circuit.pk",
       "sha1": "5bb034ce3cde6f5232d74f817f525821d423334f"
-    },
-    {
-      "path": "assets/keys/plonk_fibonacci_srs.bin",
-      "sha1": "86e56f2d743117dab7dd20b926e2c760dde17de3"
-    },
-    {
-      "path": "assets/keys/plonk_fibonacci_pk.bin",
-      "sha1": "b74f6731c4a037637cc76f0134c059a5a412d2cc"
     },
     {
       "path": "assets/keys/cubic_circuit.r1cs",
       "sha1": "53fe02468b47730a393ff01ee15e8f130cd0166e"
     },
     {
+      "path": "assets/keys/cubic_circuit.vk",
+      "sha1": "64f5399ecd53a3947df6e57a518629f516f4a2d1"
+    },
+    {
+      "path": "assets/keys/gemini_fibonacci_pk.bin",
+      "sha1": "47a6a4169115b00ab84b2ce7ef31da434d70f47c"
+    },
+    {
+      "path": "assets/keys/gemini_fibonacci_srs.bin",
+      "sha1": "a97673a1665c718d3fcb30a45ea8b83a4dbaa543"
+    },
+    {
+      "path": "assets/keys/gemini_fibonacci_vk.bin",
+      "sha1": "f868056ef2d3aa600e828d68452391411fa0bdea"
+    },
+    {
+      "path": "assets/keys/hyperplonk_fibonacci_pk.bin",
+      "sha1": "669536bb2d89904ceb2a4e3d5e42bf74bf9b0de5"
+    },
+    {
+      "path": "assets/keys/hyperplonk_fibonacci_srs.bin",
+      "sha1": "8f488ceea4ee1c4618e7d6ea54d2efbd21ada0d3"
+    },
+    {
+      "path": "assets/keys/hyperplonk_fibonacci_vk.bin",
+      "sha1": "393728ec473825f96394541269a67023063df4ff"
+    },
+    {
+      "path": "assets/keys/multiplier2_bls_final.zkey",
+      "sha1": "58321ff334dae705bdd1d148331bfd3c9022434b"
+    },
+    {
       "path": "assets/keys/multiplier2_final.zkey",
       "sha1": "63bdbf3c24b9f108a09ceef52dd2fca0069d01b2"
     },
     {
-      "path": "assets/keys/plonk_fibonacci_vk.bin",
-      "sha1": "6979d2547f039bf73c0cc0545b9230b57c084172"
+      "path": "assets/keys/multiplier2_wc_final.zkey",
+      "sha1": "63bdbf3c24b9f108a09ceef52dd2fca0069d01b2"
     },
     {
-      "path": "assets/keys/cubic_circuit.vk",
-      "sha1": "64f5399ecd53a3947df6e57a518629f516f4a2d1"
+      "path": "assets/keys/multiplier2_wc.cpp",
+      "sha1": "83dff817b5555f48cf9a0635008410e2b87efaeb"
+    },
+    {
+      "path": "assets/keys/multiplier2_wc.dat",
+      "sha1": "86ce8d7252ab7c056d626053d7c607a008f9289d"
+    },
+    {
+      "path": "assets/keys/noir_multiplier2_poseidon.vk",
+      "sha1": "ede876a58aa5f4214595c285fe61df05e71e34e7"
+    },
+    {
+      "path": "assets/keys/noir_multiplier2.json",
+      "sha1": "206312852647aabd6e9098baf04b8273ca033f5e"
+    },
+    {
+      "path": "assets/keys/noir_multiplier2.srs",
+      "sha1": "9930a18fb44c9458decd31faa051389617a3332f"
+    },
+    {
+      "path": "assets/keys/noir_multiplier2.vk",
+      "sha1": "dd80d7d7d249410b8c4cfaa7abcf8e816f361056"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_pk.bin",
+      "sha1": "b74f6731c4a037637cc76f0134c059a5a412d2cc"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_srs.bin",
+      "sha1": "86e56f2d743117dab7dd20b926e2c760dde17de3"
+    },
+    {
+      "path": "assets/keys/plonk_fibonacci_vk.bin",
+      "sha1": "6979d2547f039bf73c0cc0545b9230b57c084172"
     }
   ]
 }

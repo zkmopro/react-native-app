@@ -35,7 +35,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - SocketRocket
-    - uniffi-bindgen-react-native (= 0.29.3-1)
+    - uniffi-bindgen-react-native (= 0.31.0-3)
     - Yoga
   - RCT-Folly (2024.11.18.00):
     - boost
@@ -2372,7 +2372,7 @@ PODS:
   - RNFS (2.20.0):
     - React-Core
   - SocketRocket (0.7.1)
-  - uniffi-bindgen-react-native (0.29.3-1):
+  - uniffi-bindgen-react-native (0.31.0-3):
     - React-Core
   - Yoga (0.0.0)
 
@@ -2452,12 +2452,12 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNFS (from `../node_modules/react-native-fs`)
   - SocketRocket (~> 0.7.1)
+  - uniffi-bindgen-react-native (from `../node_modules/uniffi-bindgen-react-native`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - SocketRocket
-    - uniffi-bindgen-react-native
 
 EXTERNAL SOURCES:
   boost:
@@ -2607,6 +2607,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNFS:
     :path: "../node_modules/react-native-fs"
+  uniffi-bindgen-react-native:
+    :path: "../node_modules/uniffi-bindgen-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -2618,7 +2620,7 @@ SPEC CHECKSUMS:
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: 5683914934d5b6e4240e497e0f4a3b42d1854183
   hermes-engine: 35c763d57c9832d0eef764316ca1c4d043581394
-  MoproFfi: 62968be757109eb7ddb94be1fe66b46e2797eda6
+  MoproFfi: 3d29f71a060d8fb9d38861c99a99e5568a5c25c7
   RCT-Folly: 846fda9475e61ec7bcbf8a3fe81edfcaeb090669
   RCTDeprecation: c0ed3249a97243002615517dff789bf4666cf585
   RCTRequired: 58719f5124f9267b5f9649c08bf23d9aea845b23
@@ -2685,9 +2687,9 @@ SPEC CHECKSUMS:
   ReactCommon: 394c6b92765cf6d211c2c3f7f6bc601dffb316a6
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  uniffi-bindgen-react-native: 125eae9e3a0cf34bf8f3d4b0ceed517df7cc0733
+  uniffi-bindgen-react-native: 5a59022841548d4c890e8f259016bdb8a797208a
   Yoga: a3ed390a19db0459bd6839823a6ac6d9c6db198d
 
-PODFILE CHECKSUM: 224e93c08f97edeb625c7a5dc0f27c11751709b2
+PODFILE CHECKSUM: 12c374f73f2cab07a6a24cb21e7ab67fbae48ac5
 
 COCOAPODS: 1.16.2

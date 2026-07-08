@@ -33,5 +33,40 @@ target 'MyTestLibraryExample' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Work around fmt's FMT_COMPILE_STRING consteval constructors failing to
+    # compile as constant expressions under newer/stricter Clang (e.g. Xcode
+    # 26.5). fmt/include/fmt/base.h unconditionally re-#defines FMT_CONSTEVAL
+    # based on its own Clang-version detection, so a command-line -D can't
+    # override it — patch the header directly to force it off.
+    fmt_header = installer.sandbox.pod_dir('fmt') + 'include/fmt/base.h'
+    if File.exist?(fmt_header)
+      contents = File.read(fmt_header)
+      marker = '// Patched: force-disable fmt consteval (Xcode 26.5 Clang incompatibility)'
+      unless contents.include?(marker)
+        original = <<~OLD
+          #if FMT_USE_CONSTEVAL
+          #  define FMT_CONSTEVAL consteval
+          #  define FMT_CONSTEXPR20 constexpr
+          #else
+          #  define FMT_CONSTEVAL
+          #  define FMT_CONSTEXPR20
+          #endif
+        OLD
+        replacement = <<~NEW
+          #{marker}
+          #define FMT_CONSTEVAL
+          #define FMT_CONSTEXPR20
+        NEW
+        patched = contents.sub(original, replacement)
+        if patched == contents
+          Pod::UI.warn 'fmt base.h consteval patch did not apply (source layout changed?) — Yoga/glog/fmt may fail to build.'
+        else
+          File.chmod(0644, fmt_header)
+          File.write(fmt_header, patched)
+          File.chmod(0444, fmt_header)
+        end
+      end
+    end
   end
 end
