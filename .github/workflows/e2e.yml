@@ -6,126 +6,182 @@ jobs:
     ios_e2e:
         runs-on: macos-latest
         env:
-            EXPO_NO_WAIT: true
             CI: true
+            MAESTRO_CLI_NO_ANALYTICS: true
+        timeout-minutes: 30
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Set up Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 20
+                  cache: "npm"
+
+            - name: Set up JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 21
 
             - name: Install dependencies
               run: npm ci
 
-            - name: Install Expo CLI
-              run: npm install -g expo-cli
+            - name: Install Maestro
+              run: |
+                  curl -Ls "https://get.maestro.mobile.dev" | bash
+                  echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
             - name: Install applesimutils
               run: |
                   brew tap wix/brew
                   brew install applesimutils
 
+            - name: Install CocoaPods dependencies
+              run: |
+                  cd ios
+                  pod install
+                  cd ..
+
+            - name: Boot iOS Simulator
+              run: |
+                  xcrun simctl shutdown all
+                  xcrun simctl boot "iPhone 16"
+                  xcrun simctl list devices | grep Booted
+                  sleep 10
+
+            - name: Build and install iOS app
+              run: |
+                  xcodebuild -scheme MyTestLibraryExample \
+                  -workspace ios/MyTestLibraryExample.xcworkspace \
+                  -configuration Debug \
+                  -sdk iphonesimulator \
+                  -derivedDataPath build \
+                  -arch arm64
+
+                  xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MyTestLibraryExample.app
+
+            - name: Run iOS Maestro tests
+              run: |
+                  # Create reports directory
+                  mkdir -p e2e/reports
+
+                  # Start Metro bundler for tests
+                  npm start &
+                  METRO_PID=$!
+                  sleep 10
+
+                  # Run the app
+                  xcrun simctl launch booted mytestlibrary.example || true
+                  sleep 10
+
+                  # Run the tests
+                  npm run e2e:test
+
+                  # Clean up
+                  kill $METRO_PID 2>/dev/null || true
+                  pkill -f "Metro" || true
+
+            - name: Upload test results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: e2e-test-results-ios
+                  path: e2e/reports/
+
+            - name: Upload screenshots
+              uses: actions/upload-artifact@v4
+              if: failure()
+              with:
+                  name: e2e-screenshots-ios
+                  path: e2e/reports/screenshots/
+
+    android_e2e:
+        runs-on: ubuntu-latest
+        env:
+            CI: true
+            MAESTRO_CLI_NO_ANALYTICS: true
+        timeout-minutes: 30
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: "npm"
+
+            - name: Set up JDK
+              uses: actions/setup-java@v4
+              with:
+                  distribution: zulu
+                  java-version: 21
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Install Maestro
+              run: |
+                  curl -Ls "https://get.maestro.mobile.dev" | bash
+                  echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+            - name: Android SDK
+              uses: android-actions/setup-android@v3
+
+            - name: Setup NDK
+              uses: nttld/setup-ndk@v1
+              with:
+                  ndk-version: r26d
+
             - name: Prebuild
-              run: npm run prebuild
+              run: npm run assets
 
-            # Build iOS and Android apps for E2E
-            - name: Build iOS for Detox
-              run: npm run e2e:build:ios
+            - name: Enable KVM (faster emulator)
+              run: |
+                  echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                  sudo udevadm control --reload-rules
+                  sudo udevadm trigger --name-match=kvm
+            - name: Free up disk space
+              run: |
+                  sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/share/boost
+                  sudo rm -rf $ANDROID_HOME/ndk || true
+                  docker system prune -af || true
 
-            # Start Metro bundler in background
-            - name: Start Metro bundler
-              run: npx expo start --dev-client --port 8081 &
+            - name: Build Debug APK
+              run: |
+                  npm run build:android
 
-            # Give Metro a few seconds to boot before launching Detox
-            - name: Wait for Metro
-              run: sleep 20
+            - name: Test Android with Maestro
+              uses: reactivecircus/android-emulator-runner@v2
+              with:
+                  api-level: 29
+                  target: default
+                  arch: x86_64
+                  disable-animations: true
+                  emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 2048 -cores 2"
+                  script: |
+                      # Start Metro bundler for tests
+                      npm start & METRO_PID=$!
 
-            - name: Run iOS Detox tests
-              run: npm run e2e:test:ios
+                      # Build and install the app
+                      cd android && ./gradlew assembleDebug && cd ..
 
-    # TODO: Fix android e2e tests (No space left on device)
-    # android_e2e:
-    #     runs-on: ubuntu-latest
-    #     env:
-    #         EXPO_NO_WAIT: true
-    #         CI: true
+                      # Install the app
+                      adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 
-    #     steps:
-    #         - name: Checkout repo
-    #           uses: actions/checkout@v3
+                      # Run the tests
+                      npm run e2e:test
 
-    #         - name: Set up Node.js
-    #           uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 20
+                      # Clean up
+                      kill $METRO_PID 2>/dev/null || true && pkill -f "Metro" || true
 
-    #         - name: Install dependencies
-    #           run: npm ci
+            - name: Upload test results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: e2e-test-results-android
+                  path: e2e/reports/
 
-    #         - name: Install Expo CLI
-    #           run: npm install -g expo-cli
-
-    #         - name: Android SDK
-    #           uses: android-actions/setup-android@v3
-
-    #         - name: Setup NDK
-    #           uses: nttld/setup-ndk@v1
-    #           with:
-    #               ndk-version: r26d
-
-    #         - name: Prebuild
-    #           run: npm run prebuild
-
-    #         - name: Start Metro bundler
-    #           run: npx expo start --dev-client --port 8081 &
-
-    #         - name: Wait for Metro
-    #           run: |
-    #               for i in {1..30}; do
-    #                   if nc -z localhost 8081; then
-    #                   echo "Metro is up!"
-    #                   break
-    #                   fi
-    #                   echo "Waiting for Metro..."
-    #                   sleep 2
-    #               done
-
-    #         - name: Enable KVM (faster emulator)
-    #           run: |
-    #               echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-    #               sudo udevadm control --reload-rules
-    #               sudo udevadm trigger --name-match=kvm
-
-    #         - name: Clean workspace
-    #           run: |
-    #               echo "Cleaning unused caches..."
-    #               sudo rm -rf $HOME/.gradle/caches/
-    #               sudo rm -rf $HOME/.android/build-cache/
-    #               sudo rm -rf android/app/build/
-    #               sudo rm -rf /tmp/*
-    #               sudo rm -rf /usr/local/lib/android/sdk/system-images
-
-    #         - name: Build Android for Detox
-    #           uses: reactivecircus/android-emulator-runner@v2
-    #           with:
-    #               api-level: 29
-    #               target: google_apis
-    #               arch: x86_64
-    #               disable-animations: true
-    #               disk-size: 2048M
-    #               emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-    #               script: npm run e2e:build:android
-
-    #         - name: Run Android Detox tests
-    #           uses: reactivecircus/android-emulator-runner@v2
-    #           with:
-    #               api-level: 29
-    #               target: google_apis
-    #               arch: x86_64
-    #               disable-animations: true
-    #               disk-size: 2048M
-    #               emulator-options: "-no-snapshot -no-boot-anim -no-window -gpu swiftshader_indirect -memory 4096 -cores 4"
-    #               script: npm run e2e:build:android

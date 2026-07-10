@@ -19,6 +19,7 @@ web-build/
 expo-env.d.ts
 # @end expo-cli
 
+build/
 ios/build
 ios/.xcode.env.local
 ios/Pods
@@ -26,3 +27,5 @@ MoproReactNativeBindings/android/build/
 MoproReactNativeBindings/android/.gradle/
 MoproReactNativeBindings/android/.cxx/
 MoproReactNativeBindings/lib
+
+e2e/reports/
